@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TechBuy API — Backend REST
 
 API Node.js/Express con PostgreSQL para la web TechBuy.
@@ -308,3 +309,6 @@ fetch('http://localhost:3000/api/pedidos', {
 | TECHBUY10    | 10%       |
 | OFERTA15     | 15%       |
 | BIENVENIDO   | 5% (1 uso)|
+=======
+# techbuy
+>>>>>>> 017f42d18f8f18bdae684db51478bfc5690b80c6
