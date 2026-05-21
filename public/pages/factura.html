@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Factura — TechBuy</title>
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/1.css" />
+  <link rel="stylesheet" href="../css/factura.css" />
+  <link rel="stylesheet" data-version="6.4.0"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+</head>
+<body>
+
+<!-- UNIFIED HEADER -->
+<div id="tb-header">
+  <div id="tb-header-scroll">
+  <div id="tb-header-bar1">
+    <div class="tb-header-inner">
+      <div class="tb-logo" id="tb-logo-btn">
+        <img src="../img/Gemini_Generated_Image_gp2dx5gp2dx5gp2d.png" alt="TechBuy Logo" class="tb-logo-img">
+      </div>
+      <div class="tb-search">
+        <input id="tb-search-input" type="text" placeholder="Buscar productos..." autocomplete="off" />
+        <button class="tb-srch-btn" id="tb-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="tb-search-sug" class="tb-search-sug" role="listbox"></div>
+      </div>
+      <div class="tb-actions">
+        <button class="tb-btn-acct" id="tb-account-btn"><i class="fa-regular fa-user"></i> Mi cuenta</button>
+        <button class="tb-btn-cart" id="tb-cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="tb-cart-badge" id="tb-cart-badge" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="tb-header-bar2">
+    <div class="tb-nav-inner">
+      <a class="tb-nav-link" href="1.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="tb-nav-link" href="categorias.html" data-page="catalogo"><i class="fa-solid fa-boxes-stacked"></i> Categorías</a>
+      <a class="tb-nav-link" href="contacto.html" data-page="contacto"><i class="fa-solid fa-headset"></i> Contáctanos</a>
+      <a class="tb-nav-link" href="ofertas.html" data-page="ofertas"><i class="fa-solid fa-tags"></i> Ofertas</a>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- FACTURA PAGE -->
+<div class="fac-page" id="facPage">
+
+  <!-- BANNER ÉXITO -->
+  <div class="fac-banner">
+    <div class="fac-banner-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="fac-banner-text">
+      <h2>¡Pago procesado con éxito!</h2>
+      <p>Tu factura ha sido generada. Puedes descargarla en PDF o continuar comprando.</p>
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="fac-actions">
+    <button class="fac-btn fac-btn-pdf" id="facBtnPdf" onclick="downloadPDF()">
+      <i class="fa-solid fa-file-pdf"></i>
+      Descargar Factura PDF
+    </button>
+    <a class="fac-btn fac-btn-home" href="1.html">
+      <i class="fa-solid fa-arrow-left"></i>
+      Seguir comprando
+    </a>
+  </div>
+
+  <!-- FACTURA VISUAL -->
+  <div class="fac-card" id="facInvoice">
+
+    <!-- ENCABEZADO FACTURA -->
+    <div class="fac-header">
+      <div class="fac-brand">
+        <img src="../img/Gemini_Generated_Image_gp2dx5gp2dx5gp2d.png"
+             alt="TechBuy Logo" class="fac-brand-logo" />
+        <div class="fac-brand-contact">
+          <div><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</div>
+          <div><i class="fa-solid fa-phone"></i> +505 8888-0000</div>
+          <div><i class="fa-solid fa-envelope"></i> info@techbuy.com</div>
+        </div>
+      </div>
+      <div class="fac-header-right">
+        <div class="fac-invoice-label">Factura N°</div>
+        <div class="fac-invoice-num" id="facNum">—</div>
+        <div class="fac-invoice-badge">
+          <i class="fa-solid fa-circle" style="font-size:7px"></i>
+          Pagado
+        </div>
+      </div>
+    </div>
+
+    <!-- META: CLIENTE + FECHA -->
+    <div class="fac-meta">
+      <div class="fac-meta-group">
+        <div class="fac-meta-label"><i class="fa-solid fa-user"></i> &nbsp;Facturado a</div>
+        <div class="fac-meta-value" id="facClientName">—</div>
+        <div class="fac-meta-sub" id="facClientEmail">—</div>
+        <div class="fac-meta-sub" id="facClientDept">—</div>
+      </div>
+      <div class="fac-meta-group" style="text-align:right">
+        <div class="fac-meta-label">Fecha de emisión &nbsp;<i class="fa-solid fa-calendar-days"></i></div>
+        <div class="fac-meta-value" id="facDate">—</div>
+        <div class="fac-meta-sub">Método: Tarjeta de crédito/débito</div>
+        <div class="fac-meta-sub" id="facOrder">Pedido —</div>
+      </div>
+    </div>
+
+    <!-- TABLA DE PRODUCTOS -->
+    <div class="fac-table-wrap">
+      <div class="fac-table-title">
+        <i class="fa-solid fa-box-open"></i>
+        Detalle de productos
+      </div>
+      <table class="fac-table">
+        <thead>
+          <tr>
+            <th style="width:42%">Producto</th>
+            <th class="fac-th-center">Cant.</th>
+            <th class="fac-th-center">Precio unit.</th>
+            <th class="fac-th-center">IVA (15%)</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="facTableBody">
+          <!-- filas generadas por JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TOTALES -->
+    <div class="fac-totals">
+      <div class="fac-totals-box">
+        <div class="fac-total-row">
+          <span>Subtotal (sin IVA)</span>
+          <span id="facSubtotal">C$0.00</span>
+        </div>
+        <div class="fac-total-row">
+          <span>IVA incluido (15%)</span>
+          <span id="facIva">C$0.00</span>
+        </div>
+        <div class="fac-total-row discount" id="facDiscountRow" style="display:none">
+          <span><i class="fa-solid fa-tag"></i> Descuento cupón</span>
+          <span id="facDiscount">-C$0.00</span>
+        </div>
+        <div class="fac-total-row">
+          <span>Envío</span>
+          <span id="facShipping">Gratis</span>
+        </div>
+        <div class="fac-total-row grand">
+          <span>TOTAL PAGADO</span>
+          <span id="facTotal">C$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIE DE FACTURA -->
+    <div class="fac-footer">
+      <div class="fac-footer-note">
+        <i class="fa-solid fa-shield-halved"></i>
+        Esta factura es un comprobante válido de tu compra en TechBuy. Conserva este documento.
+      </div>
+      <div class="fac-footer-stamp">
+        <div class="fac-stamp-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        Verificado
+      </div>
+    </div>
+
+  </div><!-- /.fac-card -->
+</div><!-- /.fac-page -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon" style="font-size:20px"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">TECHBUY</div>
+        <p class="foot-desc">Tu tienda de confianza para computadoras y electrónica.</p>
+      </div>
+      <div>
+        <div class="foot-title">Tienda</div>
+        <ul class="foot-links">
+          <li><a href="ofertas.html">Ofertas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Ayuda</div>
+        <ul class="foot-links">
+          <li><a href="#">Garantía</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contacto</div>
+        <ul class="foot-links">
+          <li><a href="mailto:info@techbuy.com"><i class="fa-solid fa-envelope"></i> info@techbuy.com</a></li>
+          <li><a href="tel:+50588880000"><i class="fa-solid fa-phone"></i> +505 8888-0000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2025 TechBuy — Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<!-- jsPDF desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<script src="../js/datos.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/shared.js"></script>
+<script src="../js/factura.js"></script>
+</body>
+</html>

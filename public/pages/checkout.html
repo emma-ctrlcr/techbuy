@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Compra — TechBuy</title>
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/1.css" />
+  <link rel="stylesheet" href="../css/checkout.css" />
+  <link rel="stylesheet" href="../css/shipping-dept.css" />
+  <link rel="stylesheet" data-version="6.4.0" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+</head>
+<body>
+
+<!-- UNIFIED HEADER -->
+<div id="tb-header">
+  <div id="tb-header-scroll">
+  <div id="tb-header-bar1">
+    <div class="tb-header-inner">
+      <div class="tb-logo" id="tb-logo-btn">
+        <img src="../img/Gemini_Generated_Image_gp2dx5gp2dx5gp2d.png" alt="TechBuy Logo" class="tb-logo-img">
+      </div>
+      <div class="tb-search">
+        <input id="tb-search-input" type="text" placeholder="Buscar productos..." autocomplete="off" />
+        <button class="tb-srch-btn" id="tb-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="tb-search-sug" class="tb-search-sug" role="listbox"></div>
+      </div>
+      <div class="tb-actions">
+        <button class="tb-btn-acct" id="tb-account-btn"><i class="fa-regular fa-user"></i> Mi cuenta</button>
+        <button class="tb-btn-cart" id="tb-cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="tb-cart-badge" id="tb-cart-badge" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="tb-header-bar2">
+    <div class="tb-nav-inner">
+      <a class="tb-nav-link" href="1.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="tb-nav-link" href="categorias.html" data-page="catalogo"><i class="fa-solid fa-boxes-stacked"></i> Categorías</a>
+      <a class="tb-nav-link" href="contacto.html" data-page="contacto"><i class="fa-solid fa-headset"></i> Contáctanos</a>
+      <a class="tb-nav-link" href="ofertas.html" data-page="ofertas"><i class="fa-solid fa-tags"></i> Ofertas</a>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- CHECKOUT CONTENT -->
+<div class="chk-page-wrapper" id="chkWrapper">
+  <!-- Renderizado por checkout.js -->
+</div>
+
+<!-- OVERLAY DE PROCESAMIENTO -->
+<div class="chk-processing" id="chkProcessing">
+  <div class="chk-processing-box" id="chkProcessingBox">
+
+    <!-- Estado: cargando (default) -->
+    <div class="chk-proc-state" id="chkStateLoading">
+      <div class="chk-spinner-ring"></div>
+      <p>Procesando tu pago...</p>
+      <small>Por favor no cierres esta ventana</small>
+    </div>
+
+    <!-- Estado: éxito -->
+    <div class="chk-proc-state" id="chkStateSuccess" style="display:none">
+      <div class="chk-result-icon chk-icon-success">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="chk-circle-bg" cx="26" cy="26" r="24" stroke="#16a34a" stroke-width="3" fill="none"/>
+          <polyline class="chk-checkmark" points="14,27 22,35 38,18" stroke="#16a34a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <p class="chk-result-title success">¡Pago exitoso!</p>
+      <small id="chkSuccessOrderId">Pedido procesado correctamente</small>
+    </div>
+
+    <!-- Estado: error -->
+    <div class="chk-proc-state" id="chkStateError" style="display:none">
+      <div class="chk-result-icon chk-icon-error">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="chk-circle-bg" cx="26" cy="26" r="24" stroke="#dc2626" stroke-width="3" fill="none"/>
+          <line class="chk-cross-1" x1="16" y1="16" x2="36" y2="36" stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"/>
+          <line class="chk-cross-2" x1="36" y1="16" x2="16" y2="36" stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="chk-result-title error">Error en el pago</p>
+      <small id="chkErrorMsg">No se pudo procesar tu pago. Intenta de nuevo.</small>
+      <button class="chk-retry-btn" onclick="closeProcessingOverlay()">Reintentar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon" style="font-size:20px"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">TECHBUY</div>
+        <p class="foot-desc">Tu tienda de confianza para computadoras y electrónica. Los mejores precios y garantía en todos nuestros productos.</p>
+      </div>
+      <div>
+        <div class="foot-title">Tienda</div>
+        <ul class="foot-links">
+          <li><a href="ofertas.html">Ofertas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Ayuda</div>
+        <ul class="foot-links">
+          <li><a href="#">Garantía</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contacto</div>
+        <ul class="foot-links">
+          <li><a href="mailto:info@techbuy.com"><i class="fa-solid fa-envelope"></i> info@techbuy.com</a></li>
+          <li><a href="tel:+50588880000"><i class="fa-solid fa-phone"></i> +505 8888-0000</a></li>
+          <li><a href="#"><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2025 TechBuy — Computer &amp; Electronics Center. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script src="../js/datos.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/shared.js"></script>
+<script src="../js/checkout.js"></script>
+  <script src="../js/shipping-dept.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión — TechBuy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" data-version="6.4.0"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+
+<div class="login-page">
+
+  <!-- ═══ PANEL IZQUIERDO: DECORATIVO ═══════════════════════ -->
+  <div class="login-hero">
+    <div class="hero-logo-wrap">
+      <img src="../img/Gemini_Generated_Image_gp2dx5gp2dx5gp2d.png"
+           alt="TechBuy Logo" class="hero-logo-img"
+           onerror="this.style.display='none'" />
+      <span class="hero-brand">TechBuy</span>
+    </div>
+
+    <h1 class="hero-tagline">
+      Tu tienda de<br><span>tecnología</span><br>de confianza
+    </h1>
+    <p class="hero-sub">
+      Computadoras, periféricos, accesorios y más. Entrega rápida a todo Nicaragua.
+    </p>
+
+    <div class="hero-badges">
+      <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Pago seguro</div>
+      <div class="hero-badge"><i class="fa-solid fa-truck-fast"></i> Envío rápido</div>
+      <div class="hero-badge"><i class="fa-solid fa-headset"></i> Soporte 24/7</div>
+    </div>
+  </div>
+
+  <!-- ═══ PANEL DERECHO: FORMULARIO ══════════════════════════ -->
+  <div class="login-form-wrap">
+    <div class="login-card">
+
+      <!-- Volver -->
+      <a href="1.html" class="login-back">
+        <i class="fa-solid fa-arrow-left"></i> Volver a la tienda
+      </a>
+
+      <!-- Tabs -->
+      <div class="login-tabs">
+        <button class="login-tab active" id="tabLogin" onclick="showTab('login')">
+          Iniciar sesión
+        </button>
+        <button class="login-tab" id="tabRegister" onclick="showTab('register')">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- ── PANEL LOGIN ───────────────────────────────────── -->
+      <div id="panelLogin">
+        <h2 class="login-title">Bienvenido de vuelta</h2>
+        <p class="login-subtitle">Ingresa tus datos para acceder a tu cuenta.</p>
+
+        <div class="lf-field">
+          <label class="lf-label">Correo electrónico</label>
+          <div class="lf-input-wrap">
+            <input type="email" id="loginEmail" class="lf-input"
+                   placeholder="tu@correo.com" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">Contraseña</label>
+          <div class="lf-input-wrap">
+            <input type="password" id="loginPassword" class="lf-input has-icon"
+                   placeholder="••••••••" autocomplete="current-password" />
+            <button type="button" class="lf-eye" id="eyeLoginPwd" tabindex="-1">
+              <i class="fa-regular fa-eye" id="eyeLoginIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lf-extras">
+          <label class="lf-remember">
+            <input type="checkbox" id="loginRemember" />
+            <span>Recuérdame</span>
+          </label>
+          <button type="button" class="lf-forgot">¿Olvidaste tu contraseña?</button>
+        </div>
+
+        <div class="lf-msg" id="loginMsg"></div>
+
+        <button class="lf-btn" id="btnLogin" onclick="handleLogin()">
+          <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+        </button>
+
+        <p class="lf-switch">
+          ¿No tienes cuenta?
+          <button type="button" class="lf-switch-btn" onclick="showTab('register')">
+            Regístrate gratis
+          </button>
+        </p>
+      </div>
+
+      <!-- ── PANEL REGISTRO ────────────────────────────────── -->
+      <div id="panelRegister" style="display:none">
+        <h2 class="login-title">Crear cuenta</h2>
+        <p class="login-subtitle">Únete y empieza a comprar los mejores productos tech.</p>
+
+        <div class="lf-row">
+          <div class="lf-field">
+            <label class="lf-label">Nombre</label>
+            <input type="text" id="regNombre" class="lf-input"
+                   placeholder="Juan" autocomplete="given-name" />
+          </div>
+          <div class="lf-field">
+            <label class="lf-label">Apellido</label>
+            <input type="text" id="regApellido" class="lf-input"
+                   placeholder="Pérez" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">Correo electrónico</label>
+          <input type="email" id="regEmail" class="lf-input"
+                 placeholder="tu@correo.com" autocomplete="email" />
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">Contraseña</label>
+          <div class="lf-input-wrap">
+            <input type="password" id="regPassword" class="lf-input has-icon"
+                   placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+            <button type="button" class="lf-eye" id="eyeRegPwd" tabindex="-1">
+              <i class="fa-regular fa-eye" id="eyeRegIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">
+            Teléfono
+            <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">
+              (opcional)
+            </span>
+          </label>
+          <input type="text" id="regTel" class="lf-input"
+                 placeholder="88001234" maxlength="8" inputmode="numeric" />
+        </div>
+
+        <div class="lf-msg" id="registerMsg"></div>
+
+        <button class="lf-btn" id="btnRegister" onclick="handleRegister()">
+          <i class="fa-solid fa-user-plus"></i> Crear cuenta
+        </button>
+
+        <p class="lf-switch">
+          ¿Ya tienes cuenta?
+          <button type="button" class="lf-switch-btn" onclick="showTab('login')">
+            Inicia sesión
+          </button>
+        </p>
+      </div>
+
+    </div><!-- /.login-card -->
+  </div><!-- /.login-form-wrap -->
+
+</div><!-- /.login-page -->
+
+<script src="../js/api.js"></script>
+<script src="../js/login.js"></script>
+
+</body>
+</html>

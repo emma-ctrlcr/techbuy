@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Carrito — TechBuy</title>
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/1.css" />
+  <link rel="stylesheet" href="../css/carrito.css" />
+  <link rel="stylesheet" data-version="6.4.0" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+</head>
+<body>
+
+<!-- UNIFIED HEADER -->
+<div id="tb-header">
+  <div id="tb-header-scroll">
+  <div id="tb-header-bar1">
+    <div class="tb-header-inner">
+      <div class="tb-logo" id="tb-logo-btn">
+        <img src="../img/Gemini_Generated_Image_gp2dx5gp2dx5gp2d.png" alt="TechBuy Logo" class="tb-logo-img">
+      </div>
+      <div class="tb-search">
+        <input id="tb-search-input" type="text" placeholder="Buscar productos..." autocomplete="off" />
+        <button class="tb-srch-btn" id="tb-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="tb-search-sug" class="tb-search-sug" role="listbox"></div>
+      </div>
+      <div class="tb-actions">
+        <button class="tb-btn-acct" id="tb-account-btn"><i class="fa-regular fa-user"></i> Mi cuenta</button>
+        <button class="tb-btn-cart" id="tb-cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="tb-cart-badge" id="tb-cart-badge" style="display:none">0</span>
+        </button>
+      </div>
+  </div>
+  </div>
+  <div id="tb-header-bar2">
+    <div class="tb-nav-inner">
+      <a class="tb-nav-link" href="1.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="tb-nav-link" href="categorias.html" data-page="catalogo"><i class="fa-solid fa-boxes-stacked"></i> Categorías</a>
+      <a class="tb-nav-link" href="contacto.html" data-page="contacto"><i class="fa-solid fa-headset"></i> Contáctanos</a>
+      <a class="tb-nav-link" href="ofertas.html" data-page="ofertas"><i class="fa-solid fa-tags"></i> Ofertas</a>
+    </div>
+  </div>
+  </div><!-- /#tb-header -->
+</div><!-- REAL /#tb-header -->
+
+<!-- CART PAGE -->
+<div class="cart-page-wrapper">
+
+  <!-- CART ITEMS -->
+  <div class="cart-page-left">
+    <div class="cart-page-header">
+      <h2><i class="fa-solid fa-cart-shopping"></i> Mi Carrito</h2>
+      <span class="cart-page-count" id="cartPageCount">0 productos</span>
+    </div>
+    <div class="cart-page-items" id="cartPageItems"></div>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="cart-page-right">
+    <div class="cart-summary-card">
+      <div class="cart-summary-title">Resumen del pedido</div>
+
+      <div class="cart-summary-items" id="cartSummaryItems"></div>
+
+      <div class="cart-summary-subtotals">
+        <div class="cart-sub-row">
+          <span>Subtotal (precio base):</span>
+          <span id="cartSubtotal">C$0.00</span>
+        </div>
+        <div class="cart-sub-row">
+          <span>IVA (15%):</span>
+          <span id="cartIva">C$0.00</span>
+        </div>
+        <div class="cart-sub-row discount-row" id="discountRow" style="display:none">
+          <span>Descuento:</span>
+          <span class="discount-val" id="discountVal">-C$0.00</span>
+        </div>
+      </div>
+
+      <!-- Coupon -->
+      <div class="cart-coupon">
+        <div class="cart-coupon-label"><i class="fa-solid fa-tag"></i> Codigo de descuento</div>
+        <div class="cart-coupon-row">
+          <input type="text" id="cartCouponInput" placeholder="Ingresa tu codigo" />
+          <button id="applyCouponBtn">Aplicar</button>
+        </div>
+        <div class="cart-coupon-msg" id="cartCouponMsg"></div>
+      </div>
+
+      <div class="cart-summary-total">
+        <span>Total a pagar:</span>
+        <strong id="cartFinalTotal">C$0.00</strong>
+      </div>
+      <div class="cart-summary-note">Precio base + IVA (15%) = Total a pagar</div>
+
+      <button class="cart-checkout-btn" id="cartCheckoutBtn">
+        <i class="fa-solid fa-lock"></i> Proceder al pago
+      </button>
+
+      <div class="cart-secure-badges">
+        <span><i class="fa-solid fa-shield-halved"></i> Pago seguro</span>
+        <span><i class="fa-solid fa-truck"></i> Envio gratis</span>
+        <span><i class="fa-solid fa-rotate-left"></i> Devolucion 30 dias</span>
+      </div>
+
+      <div class="cart-continue">
+        <a href="1.html"><i class="fa-solid fa-arrow-left"></i> Continuar comprando</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon" style="font-size:20px"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">TECHBUY</div>
+        <p class="foot-desc">Tu tienda de confianza para computadoras y electrónica. Los mejores precios y garantía en todos nuestros productos.</p>
+      </div>
+      <div>
+        <div class="foot-title">Tienda</div>
+        <ul class="foot-links">
+          <li><a href="ofertas.html">Ofertas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Ayuda</div>
+        <ul class="foot-links">
+          <li><a href="#">Garantía</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contacto</div>
+        <ul class="foot-links">
+          <li><a href="mailto:info@techbuy.com"><i class="fa-solid fa-envelope"></i> info@techbuy.com</a></li>
+          <li><a href="tel:+50588880000"><i class="fa-solid fa-phone"></i> +505 8888-0000</a></li>
+          <li><a href="#"><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2025 TechBuy — Computer &amp; Electronics Center. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script src="../js/datos.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/shared.js"></script>
+<script src="../js/carrito.js"></script>
+</body>
+</html>
