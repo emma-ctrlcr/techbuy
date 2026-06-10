@@ -1,0 +1,56 @@
+services:
+  - type: web
+    name: techbuy-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DB_HOST
+        fromDatabase:
+          name: techbuy-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: techbuy-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: techbuy-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: techbuy-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: techbuy-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: FRONTEND_URL
+        value: https://techbuy.store
+      - key: ADMIN_UPLOADS_DIR
+        value: /data/uploads
+    disk:
+      name: uploads
+      mountPath: /data/uploads
+      sizeGB: 1
+
+databases:
+  - name: techbuy-db
+    region: oregon
+    plan: free
+    databaseName: tbuy_db
+    ipAllowList: []

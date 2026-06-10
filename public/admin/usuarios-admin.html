@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Admins</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/usuarios-admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-shield-alt"></i> Usuarios Administradores</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header">
+                <h3 class="page-title">Administradores del Sistema</h3>
+                <button class="btn btn-success" id="agregarAdminBtn"><i class="fas fa-user-shield"></i> Agregar Admin</button>
+            </div>
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card">
+                <div class="table-container">
+                    <table class="table-admin">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Carnet</th>
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminsTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state" id="emptyState" style="display:none;">
+                    <div class="icon"><i class="fas fa-shield-alt fa-3x" style="opacity:0.4;"></i></div>
+                    <p>No hay administradores registrados</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="adminModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="adminModalTitle">Administrador</h3>
+                    <button class="modal-close" onclick="closeAdminModal()">&times;</button>
+                </div>
+                <div id="adminModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/usuarios-admin.js"></script>
+</body>
+</html>

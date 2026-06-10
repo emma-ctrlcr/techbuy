@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Editar Producto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/productos-ingresar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+    <style>
+        .edit-card { max-width: 720px; margin: 0 auto; }
+        .badge-preview { display:inline-block; padding:2px 10px; border-radius:10px; font-size:11px; font-weight:600; background:#f0f2f5; color:var(--text-light); }
+    </style>
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-edit"></i> Editar Producto</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header">
+                <h3 class="page-title" id="pageTitle">Editar Producto</h3>
+                <a href="/admin/productos-buscar.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a Productos</a>
+            </div>
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card edit-card" id="editCard">
+                <div class="empty-state" id="loadingState">
+                    <div class="icon"><i class="fas fa-spinner fa-spin fa-3x" style="opacity:0.5;"></i></div>
+                    <p>Cargando producto...</p>
+                </div>
+                <form id="editForm" style="display:none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="editNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" id="editBrand">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea id="editDescripcion" rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precio Original</label>
+                            <input type="number" id="editPrecio" step="0.01" min="0" required oninput="if(parseFloat(this.value)<0)this.value=0;calcularPrecioFinal('editPrecio','editDescuento','editPrecioFinal')">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio Final</label>
+                            <input type="number" id="editPrecioFinal" step="0.01" min="0" readonly placeholder="Auto-calculado con descuento">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descuento (%)</label>
+                            <input type="number" id="editDescuento" step="1" min="0" max="100" value="0" oninput="var v=parseInt(this.value)||0;if(v>100){this.value=100};if(v<0)this.value=0;calcularPrecioFinal('editPrecio','editDescuento','editPrecioFinal')">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" id="editStock" min="1" required oninput="if(parseFloat(this.value)<1)this.value=1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="editCategoria"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <select id="editBadge">
+                                <option value="">Ninguna</option>
+                                <option value="new">Nuevo</option>
+                                <option value="sale">Oferta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group toggle-wrap">
+                        <input type="checkbox" id="editActivo" checked>
+                        <label for="editActivo" style="margin:0;font-weight:400;">Producto activo</label>
+                    </div>
+                    <div class="form-group" id="imagenesActuales" style="display:none;">
+                        <label>Imágenes actuales</label>
+                        <div class="existing-grid" id="imagenesGrid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Agregar imágenes</label>
+                        <div class="upload-zone" id="editUploadZone">
+                            <div class="upload-icon-wrap">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                            <div class="upload-title">Arrastra imágenes aquí</div>
+                            <div class="upload-hint">o <strong>haz clic</strong> para seleccionar archivos<br>JPG, PNG &bull; Máx 5 imágenes &bull; Se convierten a WebP</div>
+                            <input type="file" id="editImagenes" class="upload-input" multiple accept=".jpg,.jpeg,.png,.webp">
+                            <div class="upload-count" id="editUploadCount"><i class="far fa-image"></i> <span>0 archivos</span></div>
+                        </div>
+                        <div class="upload-preview" id="editUploadPreview"></div>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Cambios</button>
+                        <a href="/admin/productos-buscar.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/producto-editar.js"></script>
+</body>
+</html>

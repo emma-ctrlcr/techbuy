@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="preload" as="image" href="/admin/img/logo-sidebar.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+                <h2 id="topBarTitle"><i class="fas fa-cog"></i> Panel Admin</h2>
+            </div>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content" id="appContent"></div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/admin.js"></script>
+</body>
+</html>

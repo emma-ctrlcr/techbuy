@@ -1,0 +1,295 @@
+/* ══════════════════════════════════════════════════════════════
+   TECHBUY — factura-admin.css (clon exacto de factura.css)
+══════════════════════════════════════════════════════════════ */
+
+/* ── PAGE WRAPPER ─────────────────────────────────────────── */
+.fac-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 40px rgba(26,47,204,.12);
+  animation: fac-fade-up .6s ease .15s both;
+}
+
+/* ── INVOICE HEADER ───────────────────────────────────────── */
+.fac-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e8ebf5;
+  padding: 20px 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.fac-brand { display: flex; flex-direction: column; justify-content: center; }
+.fac-brand-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+.fac-brand-sub {
+  font-size: 11px; color: rgba(255,255,255,.55);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  display: none;
+}
+.fac-brand-contact {
+  margin-top: 8px;
+  font-size: 11px; color: #6b7280;
+  line-height: 1.8;
+}
+.fac-brand-contact i { margin-right: 6px; color: #1a2fcc; }
+
+.fac-header-right { text-align: right; position: relative; z-index: 1; }
+.fac-invoice-label {
+  font-size: 10px; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.fac-invoice-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900; font-size: 24px; color: #0d1b3e;
+  letter-spacing: 1px;
+}
+.fac-invoice-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px; padding: 6px 14px;
+  background: rgba(22,163,74,.12);
+  border: 1.5px solid rgba(22,163,74,.4);
+  border-radius: 30px;
+  font-size: 11px; font-weight: 700; color: #16a34a;
+  text-transform: uppercase; letter-spacing: .8px;
+}
+
+/* ── INVOICE META ─────────────────────────────────────────── */
+.fac-meta {
+  padding: 28px 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  border-bottom: 1px solid #e8ebf5;
+  background: #fafbff;
+}
+.fac-meta-group { }
+.fac-meta-label {
+  font-size: 10px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+.fac-meta-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: 15px; color: #0d1b3e;
+}
+.fac-meta-sub {
+  font-size: 12px; color: #6b7280; margin-top: 2px;
+}
+
+/* ── PRODUCTS TABLE ───────────────────────────────────────── */
+.fac-table-wrap {
+  padding: 32px 44px;
+}
+.fac-table-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; font-size: 13px;
+  color: #9ca3af; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+.fac-table-title i { color: #1a2fcc; }
+
+.fac-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fac-table thead tr {
+  background: #f0f4ff;
+}
+.fac-table thead th {
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 800;
+  color: #1a2fcc; text-transform: uppercase;
+  letter-spacing: .7px; text-align: left;
+}
+.fac-table thead th:first-child { border-radius: 10px 0 0 10px; }
+.fac-table thead th:last-child {
+  border-radius: 0 10px 10px 0;
+  text-align: right;
+}
+.fac-table thead th.fac-th-center { text-align: center; }
+
+.fac-table tbody tr {
+  border-bottom: 1px solid #f0f2f8;
+  transition: background .15s;
+}
+.fac-table tbody tr:last-child { border-bottom: none; }
+.fac-table tbody tr:hover { background: #fafbff; }
+
+.fac-table tbody td {
+  padding: 16px;
+  font-size: 14px;
+  color: #374151;
+  vertical-align: middle;
+}
+.fac-table tbody td:last-child { text-align: right; }
+.fac-table tbody td.fac-td-center { text-align: center; }
+
+.fac-prod-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; color: #0d1b3e; font-size: 14px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.fac-prod-brand {
+  font-size: 11px; color: #9ca3af; margin-top: 2px;
+}
+.fac-qty-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  background: #e0e7ff; color: #1a2fcc;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-weight: 800; font-size: 13px;
+}
+.fac-price { font-weight: 600; color: #374151; }
+.fac-subtotal-cell {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; color: #0d1b3e; font-size: 15px;
+}
+
+/* ── TOTALS SECTION ───────────────────────────────────────── */
+.fac-totals {
+  padding: 0 44px 36px;
+  display: flex;
+  justify-content: flex-end;
+}
+.fac-totals-box {
+  width: 320px;
+  background: #f8faff;
+  border-radius: 16px;
+  border: 1px solid #e0e7ff;
+  overflow: hidden;
+}
+.fac-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  font-size: 13px;
+  color: #6b7280;
+  border-bottom: 1px solid #e8ebf5;
+}
+.fac-total-row:last-child { border-bottom: none; }
+.fac-total-row span:last-child {
+  font-weight: 700; color: #0d1b3e;
+}
+.fac-total-row.discount span { color: #16a34a !important; }
+.fac-total-row.discount span:last-child { color: #16a34a !important; }
+.fac-total-row.grand {
+  background: #0d1b3e;
+  padding: 16px 20px;
+}
+.fac-total-row.grand span {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900; font-size: 18px; color: #fff !important;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.fac-footer {
+  padding: 24px 44px;
+  background: #f8faff;
+  border-top: 1px solid #e8ebf5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.fac-footer-note {
+  font-size: 12px; color: #9ca3af;
+  display: flex; align-items: center; gap: 6px;
+}
+.fac-footer-note i { color: #1a2fcc; }
+.fac-footer-stamp {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  color: #6b7280; text-transform: uppercase; letter-spacing: .8px;
+}
+.fac-stamp-circle {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 2px solid #16a34a;
+  display: flex; align-items: center; justify-content: center;
+  color: #16a34a; font-size: 16px;
+}
+
+/* ── ACTION BUTTONS ───────────────────────────────────────── */
+.fac-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 26px;
+  border: none; border-radius: 14px;
+  font-family: 'Inter', sans-serif; font-weight: 800; font-size: 14px;
+  cursor: pointer; transition: all .25s; text-decoration: none;
+}
+.fac-btn-pdf {
+  background: #1a2fcc;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(26,47,204,.35);
+}
+.fac-btn-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26,47,204,.5);
+}
+.fac-btn-pdf:active { transform: translateY(0); }
+.fac-btn-pdf.loading {
+  background: #9ca3af; cursor: not-allowed;
+  box-shadow: none; transform: none;
+}
+
+.fac-btn-home {
+  background: #fff;
+  color: #1a2fcc;
+  border: 2px solid #1a2fcc;
+}
+.fac-btn-home:hover {
+  background: #1a2fcc; color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(26,47,204,.3);
+}
+
+/* Spinner para el botón PDF */
+.fac-btn-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: fac-spin .8s linear infinite;
+}
+
+/* ── ANIMATIONS ───────────────────────────────────────────── */
+@keyframes fac-fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fac-spin { to { transform: rotate(360deg); } }
+
+/* ── PDF EXPORT OVERRIDES ───────────────────── */
+.fac-card.pdf-mode {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .fac-header { padding: 18px 22px; flex-direction: column; align-items: flex-start; }
+  .fac-brand-logo { height: 44px; }
+  .fac-header-right { text-align: left; }
+  .fac-meta { grid-template-columns: 1fr; padding: 20px 22px; }
+  .fac-table-wrap { padding: 20px 22px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .fac-table-wrap::-webkit-scrollbar { display: none; height: 0; }
+  .fac-table { min-width: 480px; }
+  .fac-totals { padding: 0 22px 24px; }
+  .fac-totals-box { width: 100%; }
+  .fac-footer { flex-direction: column; align-items: flex-start; padding: 18px 22px; }
+  .fac-btn { justify-content: center; }
+  .fac-invoice-num { font-size: 20px; }
+}

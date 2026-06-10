@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Cupones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/cupones.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-tags"></i> Cupones de Descuento</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card">
+                <h3 class="card-title">Crear Cupón</h3>
+                <form id="cuponForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Código del Cupón *</label>
+                            <input type="text" id="cuponCodigo" placeholder="Ej: TECHBUY20" required style="text-transform:uppercase;">
+                        </div>
+                        <div class="form-group">
+                            <label>Descuento (%) *</label>
+                            <input type="number" id="cuponDescuento" min="1" max="100" placeholder="Ej: 10" required inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Usos Máximos</label>
+                            <input type="number" id="cuponUsosMax" min="1" placeholder="Dejar vacío = ilimitado">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Inicio</label>
+                            <input type="datetime-local" id="cuponFechaInicio">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha de Expiración</label>
+                            <input type="datetime-local" id="cuponFechaFin">
+                        </div>
+                        <div class="form-group toggle-wrap" style="align-self:end;padding-bottom:4px;">
+                            <input type="checkbox" id="cuponActivo" checked>
+                            <label for="cuponActivo" style="margin:0;font-weight:400;">Activo</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Crear Cupón</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Cupones Existentes</h3>
+                <div class="table-container">
+                    <table class="table-cupones">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Descuento</th>
+                                <th>Usos</th>
+                                <th>Límite</th>
+                                <th>Inicio</th>
+                                <th>Expira</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuponesTableBody">
+                            <tr><td colspan="9" style="text-align:center;padding:24px;">Cargando cupones...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/cupones.js"></script>
+</body>
+</html>

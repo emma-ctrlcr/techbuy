@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Órdenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/ordenes.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-clipboard-list"></i> Órdenes de Compra</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header">
+                <h3 class="page-title">Todas las Órdenes</h3>
+                <button class="btn btn-danger" id="eliminarTodasBtn"><i class="fas fa-trash-alt"></i> Eliminar Todas</button>
+            </div>
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card">
+                <div class="table-container">
+                    <table class="table-ordenes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Dto.</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                                <th>PDF</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordenesTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state" id="emptyState" style="display:none;">
+                    <div class="icon"><i class="fas fa-clipboard-list fa-3x" style="opacity:0.4;"></i></div>
+                    <p>No hay órdenes registradas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/ordenes.js"></script>
+</body>
+</html>

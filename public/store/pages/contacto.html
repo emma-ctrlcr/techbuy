@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es" class="tb-loading">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contactanos — TechBuy</title>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=20260608" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260608" />
+  <link rel="shortcut icon" href="/favicon.ico?v=20260608" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260608" />
+  <meta name="apple-mobile-web-app-title" content="TechBuy" />
+  <link rel="manifest" href="/site.webmanifest?v=20260608" />
+  <style>
+    html.tb-loading body { overflow:hidden; }
+    .tb-page-loader{position:fixed;inset:0;z-index:99999;background:#f0f2f8;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:1;transition:opacity .45s ease;pointer-events:auto;}
+    html.tb-ready .tb-page-loader{opacity:0;pointer-events:none;}
+    .tb-loader-logo{width:76px;height:auto;margin-bottom:24px;animation:tb-pulse 1.4s ease-in-out infinite;}
+    .tb-loader-bar{width:160px;height:3px;background:#e0e4f0;border-radius:4px;overflow:hidden;}
+    .tb-loader-bar-inner{width:40%;height:100%;background:#1a2fcc;border-radius:4px;animation:tb-slide 1.2s ease-in-out infinite;}
+    @keyframes tb-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+    @keyframes tb-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350px)}}
+  </style>
+  <link rel="preload" href="../css/shared.css?v=20260608" as="style" />
+  <link rel="preload" href="../img/logo.webp" as="image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../css/shared.css?v=20260608" />
+  <link rel="stylesheet" href="../css/1.css?v=20260608" />
+  <link rel="stylesheet" href="../css/contacto.css?v=20260608" />
+  <link rel="stylesheet" data-version="6.4.0" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+
+</head>
+<body>
+
+<div class="tb-page-loader" id="tbPageLoader">
+  <img src="../img/logo.webp" alt="" class="tb-loader-logo">
+  <div class="tb-loader-bar"><div class="tb-loader-bar-inner"></div></div>
+</div>
+
+
+<!-- UNIFIED HEADER -->
+<div id="tb-header">
+  <div id="tb-header-scroll">
+  <div id="tb-header-bar1">
+    <div class="tb-header-inner">
+      <div class="tb-logo" id="tb-logo-btn">
+        <img src="../img/logo.webp" alt="TechBuy Logo" class="tb-logo-img">
+      </div>
+      <div class="tb-search">
+        <input id="tb-search-input" type="text" placeholder="Buscar productos..." autocomplete="off" />
+        <button class="tb-srch-btn" id="tb-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="tb-search-sug" class="tb-search-sug" role="listbox"></div>
+      </div>
+      <div class="tb-actions">
+        <button class="tb-btn-acct" id="tb-account-btn"><i class="fa-regular fa-user"></i> Mi cuenta</button>
+        <button class="tb-btn-cart" id="tb-cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="tb-cart-badge" id="tb-cart-badge" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="tb-header-bar2">
+    <div class="tb-nav-inner">
+      <a class="tb-nav-link" href="1.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="tb-nav-link" href="categorias.html" data-page="catalogo"><i class="fa-solid fa-boxes-stacked"></i> Categorías</a>
+      <a class="tb-nav-link active" href="contacto.html" data-page="contacto"><i class="fa-solid fa-headset"></i> Contáctanos</a>
+      <a class="tb-nav-link" href="ofertas.html" data-page="ofertas"><i class="fa-solid fa-tags"></i> Ofertas</a>
+    </div>
+  </div>
+  </div><!-- /#tb-header -->
+</div><!-- REAL /#tb-header -->
+
+<!-- CONTACT PAGE -->
+<div class="tb-main contact-wrapper">
+
+  <!-- LEFT: INFO -->
+  <div class="contact-info">
+    <div class="contact-info-header">
+      <h1>Estamos aqui para <span>ayudarte</span></h1>
+    </div>
+
+    <div class="contact-channels">
+      <div class="contact-channel">
+        <div class="contact-channel-icon"><img src="../img/contact-icons/gmail.svg" alt="Gmail" width="36" height="36"></div>
+        <div>
+          <div class="contact-channel-title">Correo electronico</div>
+          <div class="contact-channel-value">info@techbuy.com</div>
+          <div class="contact-channel-note">Respuesta en 24 horas</div>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <div class="contact-channel-icon"><i class="fa-solid fa-phone"></i></div>
+        <div>
+          <div class="contact-channel-title">Telefono</div>
+          <div class="contact-channel-value">+505 8888-0000</div>
+          <div class="contact-channel-note">Lun-Vie 8am-6pm</div>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <div class="contact-channel-icon"><img src="../img/contact-icons/whatsapp.svg" alt="WhatsApp" width="36" height="36"></div>
+        <div>
+          <div class="contact-channel-title">WhatsApp</div>
+          <div class="contact-channel-value">+505 8888-0000</div>
+          <div class="contact-channel-note">Disponible 24/7</div>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <div class="contact-channel-icon"><img src="../img/contact-icons/location.svg" alt="Ubicación" width="36" height="36"></div>
+        <div>
+          <div class="contact-channel-title">Ubicacion</div>
+          <div class="contact-channel-value">Managua, Nicaragua</div>
+          <div class="contact-channel-note">Centro comercial Metrocentro</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-social">
+      <div class="contact-social-title">Siguenos en redes</div>
+      <div class="contact-social-links">
+        <a href="#" class="contact-social-btn"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="contact-social-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="contact-social-btn"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" class="contact-social-btn"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="contact-hours">
+      <div class="contact-hours-title"><i class="fa-solid fa-clock"></i> Horario de atencion</div>
+      <div class="contact-hours-list">
+        <div class="contact-hours-item"><span>Lunes - Viernes</span><span>8:00 AM - 6:00 PM</span></div>
+        <div class="contact-hours-item"><span>Sabados</span><span>9:00 AM - 1:00 PM</span></div>
+        <div class="contact-hours-item"><span>Domingos</span><span>Cerrado</span></div>
+      </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="contact-map-card">
+      <div class="contact-map-title"><i class="fa-solid fa-location-dot"></i> Estamos ubicados en</div>
+      <div class="contact-map-address">4P9R+2Q3, Calle Strauss, Managua 14031, Nicaragua</div>
+      <div class="contact-map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.965646457747!2d-86.26109375651038!3d12.114503086681964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7155002824118b%3A0xb94a0036a9ba6c22!2sTech%20Center!5e0!3m2!1sen!2sni!4v1778886048635!5m2!1sen!2sni"
+          width="100%" height="220" style="border:0; border-radius: 12px;" allowfullscreen=""
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="contact-form-col">
+    <div class="contact-form-card">
+      <div class="contact-form-title">
+        <i class="fa-solid fa-paper-plane"></i> Envianos un mensaje
+      </div>
+      <form id="contactForm">
+        <div class="contact-form-row">
+          <div class="contact-input-group">
+            <label>Nombre completo</label>
+            <input type="text" id="contactName" placeholder="Tu nombre" required />
+          </div>
+          <div class="contact-input-group">
+            <label>Correo electronico</label>
+            <input type="email" id="contactEmail" placeholder="correo@gmail.com" required />
+          </div>
+        </div>
+        <div class="contact-input-group">
+          <label>Telefono (opcional)</label>
+          <input type="text" id="contactPhone" placeholder="12345678" maxlength="8" inputmode="numeric" />
+        </div>
+        <div class="contact-input-group">
+          <label>Asunto</label>
+          <select id="contactSubject">
+            <option value="">Selecciona un asunto</option>
+            <option value="consulta">Consulta sobre producto</option>
+            <option value="pedido">Estado de mi pedido</option>
+            <option value="devolucion">Devolucion o garantia</option>
+            <option value="soporte">Soporte tecnico</option>
+            <option value="ventas">Venta corporativa</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="contact-input-group">
+          <label>Mensaje</label>
+          <textarea id="contactMessage" rows="5" placeholder="Escribe tu mensaje aqui..." required></textarea>
+        </div>
+        <button type="submit" class="contact-submit-btn">
+          <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+        </button>
+      </form>
+    </div>
+
+    <!-- FAQ -->
+    <div class="contact-faq">
+      <div class="contact-faq-title"><i class="fa-solid fa-circle-question"></i> Preguntas frecuentes</div>
+      <div class="contact-faq-list">
+        <div class="contact-faq-item">
+          <div class="contact-faq-q" onclick="toggleFaq(this)">
+            <span>Cual es el tiempo de entrega?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="contact-faq-a">El tiempo de entrega depende de que tan lejos este el departamento destinatario de la capital.</div>
+        </div>
+        <div class="contact-faq-item">
+          <div class="contact-faq-q" onclick="toggleFaq(this)">
+            <span>Como rastrear mi pedido?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="contact-faq-a">Recibiras un numero de seguimiento por correo electronico una vez tu pedido sea despachado.</div>
+        </div>
+        <div class="contact-faq-item">
+          <div class="contact-faq-q" onclick="toggleFaq(this)">
+            <span>Cual es la politica de devolucion?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="contact-faq-a">Tienes 30 dias para devolver productos en su estado original. El reembolso se procesa en 5 a 10 dias habiles.</div>
+        </div>
+        <div class="contact-faq-item">
+          <div class="contact-faq-q" onclick="toggleFaq(this)">
+            <span>Aceptan pagos con tarjeta?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="contact-faq-a">Aceptamos Visa, Mastercard, American Express.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon" style="font-size:20px"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">TECHBUY</div>
+        <p class="foot-desc">Tu tienda de confianza para computadoras y electrónica. Los mejores precios y garantía en todos nuestros productos.</p>
+      </div>
+      <div>
+        <div class="foot-title">Métodos de Pago</div>
+        <div class="foot-payment-icons">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/visa.svg" alt="Visa" class="tb-payment-icon">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/mastercard.svg" alt="Mastercard" class="tb-payment-icon">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/amex.svg" alt="American Express" class="tb-payment-icon">
+        </div>
+      </div>
+      <div>
+        <div class="foot-title">Ayuda</div>
+        <ul class="foot-links">
+          <li><a href="#">Garantía</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contacto</div>
+        <ul class="foot-links">
+          <li><a href="mailto:info@techbuy.com"><i class="fa-solid fa-envelope"></i> info@techbuy.com</a></li>
+          <li><a href="tel:+50588880000"><i class="fa-solid fa-phone"></i> +505 8888-0000</a></li>
+          <li><a href="#"><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2025 TechBuy — Computer &amp; Electronics Center. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script defer src="../js/datos.js?v=20260608"></script>
+<script defer src="../js/api.js?v=20260608"></script>
+<script defer src="../js/shared.js?v=20260608"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script defer src="../js/socket.js?v=20260608"></script>
+<script defer src="../js/contacto.js?v=20260608"></script>
+<script src="../js/loader.js?v=1"></script>
+</body>
+</html>

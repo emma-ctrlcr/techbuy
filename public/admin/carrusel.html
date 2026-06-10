@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Carrusel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/productos-ingresar.css">
+    <link rel="stylesheet" href="/admin/css/carrusel.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-images"></i> Gestión del Carrusel</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card">
+                <h3 class="card-title">Agregar Nueva Imagen</h3>
+                <form id="carruselForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="upload-zone" id="carruselUploadZone">
+                            <div class="upload-icon-wrap">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                            <div class="upload-title">Arrastra la imagen aquí</div>
+                            <div class="upload-hint">o <strong>haz clic</strong> para seleccionar<br>JPG, PNG &bull; Se convierte a WebP &bull; Recomendado: 1920×600px</div>
+                            <input type="file" id="carruselImagen" class="upload-input" accept=".jpg,.jpeg,.png,.webp" required>
+                        </div>
+                        <div class="upload-preview" id="carruselUploadPreview"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" id="carruselTitulo" placeholder="Ej: ¡Gran Venta de Temporada!">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input type="text" id="carruselSubtitulo" placeholder="Ej: Hasta 40% de descuento">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Texto del Botón</label>
+                            <input type="text" id="carruselBtnTexto" value="Ver Ofertas">
+                        </div>
+                        <div class="form-group">
+                            <label>URL del Botón</label>
+                            <input type="text" id="carruselBtnUrl" value="ofertas.html">
+                        </div>
+                    </div>
+                    <div class="form-row" style="align-items:end;">
+                        <div class="form-group">
+                            <label>Orden</label>
+                            <input type="number" id="carruselOrden" value="0" min="0" style="width:120px;">
+                        </div>
+                        <div class="form-group toggle-wrap">
+                            <input type="checkbox" id="carruselActivo" checked>
+                            <label for="carruselActivo" style="margin:0;font-weight:400;">Activo (visible)</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-upload"></i> Agregar al Carrusel</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Imágenes del Carrusel</h3>
+                <div class="table-container">
+                    <table class="table-carrusel">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Vista Previa</th>
+                                <th>Título</th>
+                                <th>Estado</th>
+                                <th>Orden</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="carruselTableBody">
+                            <tr><td colspan="7" style="text-align:center;padding:24px;">Cargando imágenes...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="editModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Editar Imagen</h3>
+                    <button class="modal-close" onclick="closeEditModal()">&times;</button>
+                </div>
+                <div id="editModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/carrusel.js"></script>
+</body>
+</html>

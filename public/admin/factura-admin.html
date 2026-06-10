@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Factura</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/factura-admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+    <link rel="preload" as="image" href="/admin/img/logo-sidebar.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-file-invoice"></i> Factura de Orden</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header">
+                <h3 class="page-title" id="pageTitle">Factura</h3>
+                <div style="display:flex;gap:8px;">
+                    <button class="fac-btn fac-btn-pdf" id="facBtnPdf" onclick="downloadPDF()">
+                        <i class="fa-solid fa-file-pdf"></i> Descargar Factura PDF
+                    </button>
+                    <a href="/admin/ordenes.html" class="fac-btn fac-btn-home">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a Órdenes
+                    </a>
+                </div>
+            </div>
+            <div class="alert-msg" id="alertMsg"></div>
+            <div id="facturaContainer" style="display:none;">
+                <div class="fac-card" id="facInvoice">
+                    <div class="fac-header">
+                        <div class="fac-brand">
+                            <img src="/admin/img/logo_factura.png" alt="TechBuy Logo" class="fac-brand-logo" />
+                            <div class="fac-brand-contact">
+                                <div><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</div>
+                                <div><i class="fa-solid fa-phone"></i> +505 8888-0000</div>
+                                <div><i class="fa-solid fa-envelope"></i> info@techbuy.com</div>
+                            </div>
+                        </div>
+                        <div class="fac-header-right">
+                            <div class="fac-invoice-label">Factura N°</div>
+                            <div class="fac-invoice-num" id="facNum">—</div>
+                            <div class="fac-invoice-badge">
+                                <i class="fa-solid fa-circle" style="font-size:7px"></i>
+                                Pagado
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fac-meta">
+                        <div class="fac-meta-group">
+                            <div class="fac-meta-label"><i class="fa-solid fa-user"></i> &nbsp;Facturado a</div>
+                            <div class="fac-meta-value" id="facClientName">—</div>
+                            <div class="fac-meta-sub" id="facClientEmail">—</div>
+                            <div class="fac-meta-sub" id="facClientDept">—</div>
+                        </div>
+                        <div class="fac-meta-group" style="text-align:right">
+                            <div class="fac-meta-label">Fecha de emisi&oacute;n &nbsp;<i class="fa-solid fa-calendar-days"></i></div>
+                            <div class="fac-meta-value" id="facDate">—</div>
+                            <div class="fac-meta-sub">M&eacute;todo: Tarjeta de cr&eacute;dito/d&eacute;bito</div>
+                            <div class="fac-meta-sub" id="facOrder">Pedido —</div>
+                        </div>
+                    </div>
+
+                    <div class="fac-table-wrap">
+                        <div class="fac-table-title">
+                            <i class="fa-solid fa-box-open"></i>
+                            Detalle de productos
+                        </div>
+                        <table class="fac-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:42%">Producto</th>
+                                    <th class="fac-th-center">Cant.</th>
+                                    <th class="fac-th-center">Precio unit.</th>
+                                    <th class="fac-th-center">IVA (15%)</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="facTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fac-totals">
+                        <div class="fac-totals-box">
+                            <div class="fac-total-row">
+                                <span>Subtotal (sin IVA)</span>
+                                <span id="facSubtotal">C$0.00</span>
+                            </div>
+                            <div class="fac-total-row">
+                                <span>IVA incluido (15%)</span>
+                                <span id="facIva">C$0.00</span>
+                            </div>
+                            <div class="fac-total-row discount" id="facDiscountRow" style="display:none">
+                                <span><i class="fa-solid fa-tag"></i> Descuento cup&oacute;n</span>
+                                <span id="facDiscount">-C$0.00</span>
+                            </div>
+                            <div class="fac-total-row">
+                                <span>Env&iacute;o</span>
+                                <span id="facShipping">Gratis</span>
+                            </div>
+                            <div class="fac-total-row grand">
+                                <span>TOTAL PAGADO</span>
+                                <span id="facTotal">C$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fac-footer">
+                        <div class="fac-footer-note">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Esta factura es un comprobante v&aacute;lido de tu compra en TechBuy. Conserva este documento.
+                        </div>
+                        <div class="fac-footer-stamp">
+                            <div class="fac-stamp-circle">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            Verificado
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" id="loadingState">
+                <div class="icon"><i class="fas fa-spinner fa-spin fa-3x" style="opacity:0.5;"></i></div>
+                <p>Cargando factura...</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/factura-admin.js"></script>
+</body>
+</html>

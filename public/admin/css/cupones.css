@@ -1,0 +1,32 @@
+.cupon-code {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.cupon-pct {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--success);
+}
+.usos-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.usos-bar i {
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .cupon-code { font-size: 12px; letter-spacing: 1px; }
+    .cupon-pct { font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+    .cupon-code { font-size: 11px; letter-spacing: 0.5px; }
+    .cupon-pct { font-size: 14px; }
+    .usos-bar { flex-wrap: wrap; }
+}

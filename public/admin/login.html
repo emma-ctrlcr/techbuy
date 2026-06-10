@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="/admin/img/techbuy-logo.png" alt="TechBuy" class="logo">
+            <h2>Panel Administrativo</h2>
+        </div>
+        <div class="login-body">
+            <div class="login-accent"></div>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Verificando credenciales...</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" id="username" placeholder="Ingrese su usuario" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" placeholder="Ingrese su contraseña" required
+                        autocomplete="current-password">
+                </div>
+                <div class="form-group">
+                    <label>Carnet</label>
+                    <input type="text" id="carnet" placeholder="Ingrese su carnet" required>
+                </div>
+                <button type="submit" class="btn-login">Ingresar al Sistema</button>
+            </form>
+        </div>
+    </div>
+    <script src="/admin/js/login.js"></script>
+</body>
+
+</html>

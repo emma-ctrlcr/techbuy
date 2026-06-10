@@ -27,6 +27,12 @@
 .chk-section-title:first-of-type { margin-top: 0; }
 .chk-section-title i { color: var(--blue); }
 
+/* ── Accepted cards ─────────────────────────────────────── */
+.chk-accepted-cards { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.chk-accepted-label { font-size: 11px; color: #999; font-weight: 600; letter-spacing: .3px; margin-right: 4px; }
+.chk-accepted-cards .tb-payment-icon { width: 36px; height: auto; opacity: .55; transition: opacity .2s; }
+.chk-accepted-cards .tb-payment-icon:hover { opacity: 1; }
+
 .chk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
 .chk-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }

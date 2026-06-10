@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="tb-loading">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesiÃ³n â€” TechBuy</title>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=20260608" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260608" />
+  <link rel="shortcut icon" href="/favicon.ico?v=20260608" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260608" />
+  <meta name="apple-mobile-web-app-title" content="TechBuy" />
+  <link rel="manifest" href="/site.webmanifest?v=20260608" />
+  <style>
+    html.tb-loading body { overflow:hidden; }
+    .tb-page-loader{position:fixed;inset:0;z-index:99999;background:#f0f2f8;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:1;transition:opacity .45s ease;pointer-events:auto;}
+    html.tb-ready .tb-page-loader{opacity:0;pointer-events:none;}
+    .tb-loader-logo{width:76px;height:auto;margin-bottom:24px;animation:tb-pulse 1.4s ease-in-out infinite;}
+    .tb-loader-bar{width:160px;height:3px;background:#e0e4f0;border-radius:4px;overflow:hidden;}
+    .tb-loader-bar-inner{width:40%;height:100%;background:#1a2fcc;border-radius:4px;animation:tb-slide 1.2s ease-in-out infinite;}
+    @keyframes tb-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+    @keyframes tb-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350px)}}
+  </style>
+  <link rel="preload" href="../css/login.css" as="style" />
+  <link rel="preload" href="../img/logo.webp" as="image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" data-version="6.4.0"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+  <link rel="stylesheet" href="../css/login.css?v=20260608" />
+</head>
+<body>
+
+<div class="tb-page-loader" id="tbPageLoader">
+  <img src="../img/logo.webp" alt="" class="tb-loader-logo">
+  <div class="tb-loader-bar"><div class="tb-loader-bar-inner"></div></div>
+</div>
+
+
+<div class="login-page">
+
+  <!-- â•â•â• PANEL IZQUIERDO: DECORATIVO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="login-hero">
+    <div class="hero-logo-wrap">
+      <img src="../img/logo.webp"
+           alt="TechBuy Logo" class="hero-logo-img"
+           onerror="this.style.display='none'" />
+      <span class="hero-brand">TechBuy</span>
+    </div>
+
+    <h1 class="hero-tagline">
+      Tu tienda de<br><span>tecnologÃ­a</span><br>de confianza
+    </h1>
+    <p class="hero-sub">
+      Computadoras, perifÃ©ricos, accesorios y mÃ¡s. Entrega rÃ¡pida a todo Nicaragua.
+    </p>
+
+    <div class="hero-badges">
+      <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Pago seguro</div>
+      <div class="hero-badge"><i class="fa-solid fa-truck-fast"></i> EnvÃ­o rÃ¡pido</div>
+      <div class="hero-badge"><i class="fa-solid fa-headset"></i> Soporte 24/7</div>
+    </div>
+  </div>
+
+  <!-- â•â•â• PANEL DERECHO: FORMULARIO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="login-form-wrap">
+    <div class="login-card">
+
+      <!-- Volver -->
+      <a href="1.html" class="login-back">
+        <i class="fa-solid fa-arrow-left"></i> Volver a la tienda
+      </a>
+
+      <!-- Tabs -->
+      <div class="login-tabs">
+        <button class="login-tab active" id="tabLogin" onclick="showTab('login')">
+          Iniciar sesiÃ³n
+        </button>
+        <button class="login-tab" id="tabRegister" onclick="showTab('register')">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- â”€â”€ PANEL LOGIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+      <div id="panelLogin">
+        <h2 class="login-title">Bienvenido de vuelta</h2>
+        <p class="login-subtitle">Ingresa tus datos para acceder a tu cuenta.</p>
+
+        <div class="lf-field">
+          <label class="lf-label">Correo electrÃ³nico</label>
+          <div class="lf-input-wrap">
+            <input type="email" id="loginEmail" class="lf-input"
+                   placeholder="tu@correo.com" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">ContraseÃ±a</label>
+          <div class="lf-input-wrap">
+            <input type="password" id="loginPassword" class="lf-input has-icon"
+                   placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password" />
+            <button type="button" class="lf-eye" id="eyeLoginPwd" tabindex="-1">
+              <i class="fa-regular fa-eye" id="eyeLoginIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lf-extras">
+          <label class="lf-remember">
+            <input type="checkbox" id="loginRemember" />
+            <span>RecuÃ©rdame</span>
+          </label>
+          <button type="button" class="lf-forgot">Â¿Olvidaste tu contraseÃ±a?</button>
+        </div>
+
+        <div class="lf-msg" id="loginMsg"></div>
+
+        <button class="lf-btn" id="btnLogin" onclick="handleLogin()">
+          <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesiÃ³n
+        </button>
+
+        <p class="lf-switch">
+          Â¿No tienes cuenta?
+          <button type="button" class="lf-switch-btn" onclick="showTab('register')">
+            RegÃ­strate gratis
+          </button>
+        </p>
+      </div>
+
+      <!-- â”€â”€ PANEL REGISTRO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+      <div id="panelRegister" style="display:none">
+        <h2 class="login-title">Crear cuenta</h2>
+        <p class="login-subtitle">Ãšnete y empieza a comprar los mejores productos tech.</p>
+
+        <div class="lf-row">
+          <div class="lf-field">
+            <label class="lf-label">Nombre</label>
+            <input type="text" id="regNombre" class="lf-input"
+                   placeholder="Juan" autocomplete="given-name" />
+          </div>
+          <div class="lf-field">
+            <label class="lf-label">Apellido</label>
+            <input type="text" id="regApellido" class="lf-input"
+                   placeholder="PÃ©rez" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">Correo electrÃ³nico</label>
+          <input type="email" id="regEmail" class="lf-input"
+                 placeholder="tu@correo.com" autocomplete="email" />
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">ContraseÃ±a</label>
+          <div class="lf-input-wrap">
+            <input type="password" id="regPassword" class="lf-input has-icon"
+                   placeholder="MÃ­nimo 6 caracteres" autocomplete="new-password" />
+            <button type="button" class="lf-eye" id="eyeRegPwd" tabindex="-1">
+              <i class="fa-regular fa-eye" id="eyeRegIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">
+            TelÃ©fono
+            <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">
+              (opcional)
+            </span>
+          </label>
+          <input type="text" id="regTel" class="lf-input"
+                 placeholder="88001234" maxlength="8" inputmode="numeric" />
+        </div>
+
+        <div class="lf-msg" id="registerMsg"></div>
+
+        <button class="lf-btn" id="btnRegister" onclick="handleRegister()">
+          <i class="fa-solid fa-user-plus"></i> Crear cuenta
+        </button>
+
+        <p class="lf-switch">
+          Â¿Ya tienes cuenta?
+          <button type="button" class="lf-switch-btn" onclick="showTab('login')">
+            Inicia sesiÃ³n
+          </button>
+        </p>
+      </div>
+
+    </div><!-- /.login-card -->
+  </div><!-- /.login-form-wrap -->
+
+</div><!-- /.login-page -->
+
+<script defer src="../js/api.js?v=20260608"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script defer src="../js/socket.js?v=20260608"></script>
+<script defer src="../js/login.js?v=20260608"></script>
+<script src="../js/loader.js?v=1"></script>
+</body>
+</html>

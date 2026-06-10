@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="tb-loading">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ofertas â€” TechBuy</title>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=20260608" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260608" />
+  <link rel="shortcut icon" href="/favicon.ico?v=20260608" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260608" />
+  <meta name="apple-mobile-web-app-title" content="TechBuy" />
+  <link rel="manifest" href="/site.webmanifest?v=20260608" />
+  <style>
+    html.tb-loading body { overflow:hidden; }
+    .tb-page-loader{position:fixed;inset:0;z-index:99999;background:#f0f2f8;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:1;transition:opacity .45s ease;pointer-events:auto;}
+    html.tb-ready .tb-page-loader{opacity:0;pointer-events:none;}
+    .tb-loader-logo{width:76px;height:auto;margin-bottom:24px;animation:tb-pulse 1.4s ease-in-out infinite;}
+    .tb-loader-bar{width:160px;height:3px;background:#e0e4f0;border-radius:4px;overflow:hidden;}
+    .tb-loader-bar-inner{width:40%;height:100%;background:#1a2fcc;border-radius:4px;animation:tb-slide 1.2s ease-in-out infinite;}
+    @keyframes tb-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+    @keyframes tb-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350px)}}
+  </style>
+  <link rel="preload" href="../css/shared.css?v=20260608" as="style" />
+  <link rel="preload" href="../img/logo.webp" as="image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../css/shared.css?v=20260608" />
+  <link rel="stylesheet" href="../css/1.css?v=20260608" />
+  <link rel="stylesheet" href="../css/ofertas.css?v=20260608" />
+  <link rel="stylesheet" data-version="6.4.0" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade" />
+</head>
+<body>
+
+<div class="tb-page-loader" id="tbPageLoader">
+  <img src="../img/logo.webp" alt="" class="tb-loader-logo">
+  <div class="tb-loader-bar"><div class="tb-loader-bar-inner"></div></div>
+</div>
+
+
+<!-- UNIFIED HEADER -->
+<div id="tb-header">
+  <div id="tb-header-scroll">
+  <div id="tb-header-bar1">
+    <div class="tb-header-inner">
+      <div class="tb-logo" id="tb-logo-btn">
+        <img src="../img/logo.webp" alt="TechBuy Logo" class="tb-logo-img">
+      </div>
+      <div class="tb-search">
+        <input id="tb-search-input" type="text" placeholder="Buscar productos..." autocomplete="off" />
+        <button class="tb-srch-btn" id="tb-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="tb-search-sug" class="tb-search-sug" role="listbox"></div>
+      </div>
+      <div class="tb-actions">
+        <button class="tb-btn-acct" id="tb-account-btn"><i class="fa-regular fa-user"></i> Mi cuenta</button>
+        <button class="tb-btn-cart" id="tb-cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="tb-cart-badge" id="tb-cart-badge" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="tb-header-bar2">
+    <div class="tb-nav-inner">
+      <a class="tb-nav-link" href="1.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="tb-nav-link" href="categorias.html" data-page="catalogo"><i class="fa-solid fa-boxes-stacked"></i> CategorÃ­as</a>
+      <a class="tb-nav-link" href="contacto.html" data-page="contacto"><i class="fa-solid fa-headset"></i> ContÃ¡ctanos</a>
+      <a class="tb-nav-link active" href="ofertas.html" data-page="ofertas"><i class="fa-solid fa-tags"></i> Ofertas</a>
+    </div>
+  </div>
+  </div><!-- /#tb-header -->
+</div><!-- REAL /#tb-header -->
+
+<div class="tb-main">
+
+<!-- HERO BANNER -->
+<div class="ofertas-hero">
+  <div class="ofertas-hero-inner">
+    <div class="ofertas-hero-badge"><i class="fa-solid fa-fire"></i> Liquidacion</div>
+    <h1>Las mejores <span>Ofertas</span> del aÃ±o</h1>
+    <p>Hasta 40% de descuento en productos seleccionados. Solo por tiempo limitado.</p>
+    <div class="ofertas-hero-stats">
+      <div class="ofertas-stat">
+        <div class="ofertas-stat-val" id="ofertaCount">0</div>
+        <div class="ofertas-stat-label">Ofertas activas</div>
+      </div>
+      <div class="ofertas-stat">
+        <div class="ofertas-stat-val" id="ofertaSavings">C$0</div>
+        <div class="ofertas-stat-label">Ahorro total</div>
+      </div>
+      <div class="ofertas-stat">
+        <div class="ofertas-stat-val">15%</div>
+        <div class="ofertas-stat-label">Precio base sin IVA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="ofertas-content">
+  <div class="ofertas-grid" id="ofertasGrid"></div>
+</div>
+
+</div><!-- /.tb-main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon" style="font-size:20px"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">TECHBUY</div>
+        <p class="foot-desc">Tu tienda de confianza para computadoras y electrÃ³nica. Los mejores precios y garantÃ­a en todos nuestros productos.</p>
+      </div>
+      <div>
+        <div class="foot-title">MÃ©todos de Pago</div>
+        <div class="foot-payment-icons">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/visa.svg" alt="Visa" class="tb-payment-icon">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/mastercard.svg" alt="Mastercard" class="tb-payment-icon">
+          <img src="https://cdn.jsdelivr.net/npm/payment-icons/min/flat/amex.svg" alt="American Express" class="tb-payment-icon">
+        </div>
+      </div>
+      <div>
+        <div class="foot-title">Ayuda</div>
+        <ul class="foot-links">
+          <li><a href="#">GarantÃ­a</a></li>
+          <li><a href="#">EnvÃ­os</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contacto</div>
+        <ul class="foot-links">
+          <li><a href="mailto:info@techbuy.com"><i class="fa-solid fa-envelope"></i> info@techbuy.com</a></li>
+          <li><a href="tel:+50588880000"><i class="fa-solid fa-phone"></i> +505 8888-0000</a></li>
+          <li><a href="#"><i class="fa-solid fa-location-dot"></i> Managua, Nicaragua</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">Â© 2025 TechBuy â€” Computer &amp; Electronics Center. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script defer src="../js/datos.js?v=20260608"></script>
+<script defer src="../js/api.js?v=20260608"></script>
+<script defer src="../js/shared.js?v=20260608"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script defer src="../js/socket.js?v=20260608"></script>
+<script defer src="../js/ofertas.js?v=20260608"></script>
+<script src="../js/loader.js?v=1"></script>
+</body>
+</html>

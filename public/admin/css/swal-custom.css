@@ -1,0 +1,117 @@
+/* ── SweetAlert2 Custom Theme ── */
+
+.swal-popup {
+    border-radius: 16px !important;
+    padding: 28px !important;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.swal-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    color: #0F172A !important;
+    padding: 0 !important;
+    margin-bottom: 8px !important;
+}
+
+.swal-html {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    color: #64748b !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.swal-icon {
+    margin-bottom: 12px !important;
+}
+
+/* ── Buttons ── */
+.swal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 6px;
+    min-width: 90px;
+    line-height: 1.4;
+}
+
+.swal-btn-primary {
+    background: #3949AB;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(57, 73, 171, 0.25);
+}
+
+.swal-btn-primary:hover {
+    background: #2f3d91;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(57, 73, 171, 0.35);
+}
+
+.swal-btn-cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.swal-btn-cancel:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+/* ── Toast ── */
+.swal-toast {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.1) !important;
+    font-family: 'Inter', sans-serif !important;
+    padding: 12px 16px !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.swal-toast-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #0F172A !important;
+}
+
+.swal-toast-icon {
+    margin-right: 8px !important;
+}
+
+/* ── Loading ── */
+.swal2-loader {
+    border-color: #3949AB transparent #3949AB transparent !important;
+}
+
+/* ── Timer bar ── */
+.swal2-timer-progress-bar {
+    background: #e2e8f0 !important;
+}
+
+.swal2-timer-progress-bar-container {
+    background: transparent !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .swal-popup {
+        padding: 20px !important;
+        border-radius: 12px !important;
+    }
+    .swal-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+}

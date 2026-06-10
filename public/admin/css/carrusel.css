@@ -1,0 +1,42 @@
+.carrusel-preview {
+    width: 140px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+.carrusel-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.carrusel-upload-area {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    background: #fafafa;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.carrusel-upload-area:hover {
+    border-color: var(--accent);
+    background: rgba(0,174,239,0.03);
+}
+.carrusel-upload-area i {
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+@media (max-width: 768px) {
+    .carrusel-preview { width: 100px; height: 60px; }
+    .carrusel-upload-area { padding: 20px 14px; }
+    .carrusel-upload-area i { font-size: 26px; }
+}
+
+@media (max-width: 480px) {
+    .carrusel-preview { width: 80px; height: 50px; }
+    .carrusel-upload-area { padding: 16px 12px; }
+    .carrusel-upload-area i { font-size: 22px; }
+}

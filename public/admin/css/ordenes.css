@@ -1,0 +1,32 @@
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.order-status i {
+    font-size: 12px;
+}
+.order-total {
+    font-weight: 700;
+    color: var(--success);
+}
+.order-discount {
+    color: var(--danger);
+    font-size: 13px;
+}
+.detalle-productos table {
+    margin-top: 8px;
+}
+.detalle-productos th {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .order-total { font-size: 13px; }
+    .order-discount { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+    .detalle-productos { overflow-x: auto; }
+    .detalle-productos table { min-width: 360px; }
+}

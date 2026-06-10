@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS public.categorias (
   key          VARCHAR(50)  UNIQUE NOT NULL,  -- slug: 'gamer', 'oficina', etc.
   nombre       VARCHAR(100) NOT NULL,
   icon         VARCHAR(100),                  -- clase FontAwesome
-  activo       BOOLEAN DEFAULT TRUE
+  activo       BOOLEAN DEFAULT TRUE,
+  orden        INT DEFAULT 0
 );
 
 -- ── Productos ─────────────────────────────────────────────────
@@ -26,7 +27,7 @@ CREATE TABLE IF NOT EXISTS public.productos (
   precio         NUMERIC(10,2) NOT NULL,
   precio_anterior NUMERIC(10,2),
   descuento      NUMERIC(5,2) DEFAULT 0,
-  stock          INT          DEFAULT 0,
+  stock          INT          DEFAULT 1 CHECK (stock >= 1),
   brand          VARCHAR(100),
   badge          VARCHAR(20),                 -- 'new' | 'sale'
   activo         BOOLEAN DEFAULT TRUE,
@@ -62,7 +63,24 @@ DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='usuarios' AND column_name='updated_at') THEN
     ALTER TABLE public.usuarios ADD COLUMN updated_at TIMESTAMPTZ DEFAULT NOW();
   END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='usuarios' AND column_name='rol') THEN
+    ALTER TABLE public.usuarios ADD COLUMN rol VARCHAR(20) DEFAULT 'user';
+  END IF;
 END $$;
+
+-- ── Refresh tokens para auth JWT ───────────────────────────────
+CREATE TABLE IF NOT EXISTS public.refresh_tokens (
+  id          SERIAL PRIMARY KEY,
+  id_usuario  INT NOT NULL REFERENCES public.usuarios(id_usuario) ON DELETE CASCADE,
+  token       VARCHAR(500) NOT NULL,
+  family      VARCHAR(50) NOT NULL,
+  expires_at  TIMESTAMPTZ NOT NULL,
+  revoked     BOOLEAN DEFAULT FALSE,
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_token ON public.refresh_tokens(token);
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_family ON public.refresh_tokens(family);
 
 -- ── Favoritos ─────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.favoritos (
@@ -81,8 +99,8 @@ CREATE TABLE IF NOT EXISTS public.cupones (
   activo       BOOLEAN DEFAULT TRUE,
   usos_max     INT,                           -- NULL = ilimitado
   usos_actual  INT DEFAULT 0,
-  fecha_inicio DATE,
-  fecha_fin    DATE
+  fecha_inicio TIMESTAMPTZ,
+  fecha_fin    TIMESTAMPTZ
 );
 
 -- ── Métodos de pago guardados por usuario ─────────────────────
@@ -170,14 +188,41 @@ DO $$ BEGIN
   END IF;
 END $$;
 
+-- Asegurar columna updated_at en admins (idempotente)
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='admins' AND column_name='updated_at') THEN
+    ALTER TABLE public.admins ADD COLUMN updated_at TIMESTAMPTZ DEFAULT NOW();
+  END IF;
+END $$;
+
+-- ══════════════════════════════════════════════════════════════
+--  MIGRACIONES POSTERIORES (ejecutar en orden si ya se crearon
+--  las tablas con el schema original)
+-- ══════════════════════════════════════════════════════════════
+
+-- Migrar cupones: DATE → TIMESTAMPTZ (idempotente)
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='cupones' AND column_name='fecha_inicio' AND data_type='date') THEN
+    ALTER TABLE public.cupones ALTER COLUMN fecha_inicio TYPE TIMESTAMPTZ USING (fecha_inicio::timestamp AT TIME ZONE 'America/Managua');
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='cupones' AND column_name='fecha_fin' AND data_type='date') THEN
+    ALTER TABLE public.cupones ALTER COLUMN fecha_fin TYPE TIMESTAMPTZ USING (fecha_fin::timestamp AT TIME ZONE 'America/Managua');
+  END IF;
+END $$;
+
 -- ── Datos iniciales: categorías ───────────────────────────────
-INSERT INTO public.categorias (key, nombre, icon) VALUES
-  ('oficina',     'Oficina',      'fa-briefcase'),
-  ('hogar',       'Hogar',        'fa-house'),
-  ('gamer',       'Gamer',        'fa-gamepad'),
-  ('computacion', 'Computación',  'fa-laptop'),
-  ('celulares',   'Celulares',    'fa-mobile-screen'),
-  ('otros',       'Otros',        'fa-box-open')
+INSERT INTO public.categorias (key, nombre, icon, orden) VALUES
+  ('adaptadores', 'Adaptadores', 'fa-plug',              1),
+  ('audio',       'Audio',       'fa-headphones',        2),
+  ('baterias',    'Baterías',    'fa-battery-full',      3),
+  ('cargadores',  'Cargadores',  'fa-charging-station',  4),
+  ('celulares',   'Celulares',   'fa-mobile-screen',     5),
+  ('computacion', 'Computación', 'fa-laptop',            6),
+  ('gamer',       'Gamer',       'fa-gamepad',           7),
+  ('hogar',       'Hogar',       'fa-house',             8),
+  ('mochilas',    'Mochilas',    'fa-bag-shopping',      9),
+  ('oficina',     'Oficina',     'fa-briefcase',         10),
+  ('otros',       'Otros',       'fa-box-open',          11)
 ON CONFLICT (key) DO NOTHING;
 
 -- ── Datos iniciales: productos ────────────────────────────────
@@ -218,5 +263,29 @@ INSERT INTO public.productos (id_categoria, nombre, precio, precio_anterior, sto
   ((SELECT id_categoria FROM public.categorias WHERE key='otros'),   'Ratón SteelSeries Aerox 3',      55,  69,  32, 'SteelSeries','sale'),
   ((SELECT id_categoria FROM public.categorias WHERE key='otros'),   'AOC CQ27G2 Curvo 27"',           249, 299, 16, 'AOC',       'sale')
 ON CONFLICT DO NOTHING;
+
+-- ── Productos sin imágenes (auditoría manual) ──────────────────
+-- SELECT p.id_producto, p.nombre FROM public.productos p
+-- LEFT JOIN public.imagenes_producto ip ON ip.id_producto = p.id_producto
+-- WHERE ip.id_imagen IS NULL AND p.activo = true;
+--
+-- Para corregir, agregue imágenes a esos productos o desactívelos:
+-- UPDATE public.productos SET activo = false WHERE id_producto = <id>;
+
+-- ── Stock constraint audit (run manually on existing DB) ─────────
+-- SELECT id_producto, nombre, stock FROM public.productos WHERE stock <= 0;
+-- Después de corregir los productos con stock <= 0, ejecutar:
+-- ALTER TABLE public.productos ADD CONSTRAINT stock_minimo CHECK (stock >= 1);
+-- NOTA: La línea "stock INT DEFAULT 1 CHECK (stock >= 1)" arriba aplica
+--       para instalaciones nuevas. En DB existentes, revise y ejecute
+--       manualmente los comandos de arriba.
+
+-- ── Coupon audit: auto-desactivar cupones vencidos ──────────────
+-- Ejecutar manualmente en DB existentes para corregir cupones
+-- que tienen fecha_fin < NOW() pero aún están marcados como activos:
+-- UPDATE public.cupones SET activo = FALSE
+-- WHERE activo = TRUE AND fecha_fin IS NOT NULL AND fecha_fin < NOW();
+-- SELECT id_cupon, codigo, fecha_fin, activo FROM public.cupones
+-- WHERE fecha_fin IS NOT NULL AND fecha_fin < NOW() ORDER BY fecha_fin;
 
 COMMIT;

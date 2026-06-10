@@ -60,4 +60,5 @@
   .ofertas-stat-val { font-size: 22px; }
   .ofertas-filters-inner { flex-direction: column; align-items: flex-start; }
   .ofertas-content { padding: 16px 14px 40px; }
+  .ofertas-grid { gap: 10px; }
 }

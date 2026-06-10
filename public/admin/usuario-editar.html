@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBuy Admin - Editar Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/global.css">
+    <link rel="stylesheet" href="/admin/css/usuario-editar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/admin/css/swal-custom.css">
+</head>
+<body>
+    <nav class="sidebar" id="sidebar"></nav>
+    <div class="main-content">
+        <div class="top-bar">
+            <h2><i class="fas fa-user-edit"></i> Editar Usuario</h2>
+            <div class="admin-info">
+                <span class="admin-name"><strong id="adminName"></strong></span>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header">
+                <h3 class="page-title" id="pageTitle">Editar Usuario</h3>
+                <a href="/admin/usuarios-web.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a Usuarios</a>
+            </div>
+            <div class="alert-msg" id="alertMsg"></div>
+            <div class="card edit-card">
+                <div class="empty-state" id="loadingState">
+                    <div class="icon"><i class="fas fa-spinner fa-spin fa-3x" style="opacity:0.5;"></i></div>
+                    <p>Cargando usuario...</p>
+                </div>
+                <form id="usuarioForm" style="display:none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Usuario *</label>
+                            <input type="text" id="uUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="uEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="uNombre">
+                            <small class="field-error" id="uNombreError" style="color:var(--danger);display:none;">Solo letras y espacios, sin números ni símbolos.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" id="uApellido">
+                            <small class="field-error" id="uApellidoError" style="color:var(--danger);display:none;">Solo letras y espacios, sin números ni símbolos.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="text" id="uTel">
+                        </div>
+                        <div class="form-group">
+                            <label>Ciudad</label>
+                            <input type="text" id="uCity">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" id="uAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña (dejar vacío para mantener)</label>
+                        <input type="password" id="uPassword">
+                    </div>
+                    <div class="form-group toggle-wrap">
+                        <input type="checkbox" id="uActivo" checked>
+                        <label for="uActivo" style="margin:0;font-weight:400;">Usuario activo</label>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Cambios</button>
+                        <a href="/admin/usuarios-web.html" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>window.showConfirm=window.showConfirm||async function(t,r){return confirm(r||'¿Estás seguro?')};window.showAlert=window.showAlert||function(m,t){m&&alert(m)};window.showLoading=window.showLoading||async function(){};window.closeLoading=window.closeLoading||function(){}</script>
+    <script src="/admin/js/swal-init.js"></script>
+    <script src="/admin/js/global.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/admin/js/admin-socket.js"></script>
+    <script src="/admin/js/usuario-editar.js"></script>
+</body>
+</html>

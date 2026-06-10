@@ -1,0 +1,17 @@
+.admin-carnet {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    background: #f0f2f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+    .admin-carnet { font-size: 12px; padding: 1px 6px; }
+}
+
+@media (max-width: 480px) {
+    .admin-carnet { font-size: 11px; padding: 1px 5px; }
+}

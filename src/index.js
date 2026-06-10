@@ -1,97 +1,187 @@
-// src/index.js — TechBuy API
 require('dotenv').config();
 
 const path    = require('path');
+process.env.TZ = 'America/Managua';
+
 const express = require('express');
 const cors    = require('cors');
-const pool    = require('./db/pool');
-
-// Rutas
-const authRouter       = require('./routes/auth');
-const usuariosRouter   = require('./routes/usuarios');
-const productosRouter  = require('./routes/productos');
-const categoriasRouter = require('./routes/categorias');
-const pedidosRouter    = require('./routes/pedidos');
-const favoritosRouter  = require('./routes/favoritos');
-const cuponesRouter    = require('./routes/cupones');
-const enviosRouter     = require('./routes/envios');
-const metodosPagoRouter= require('./routes/metodosPago');
-const carruselRouter   = require('./routes/carrusel');
+const helmet  = require('helmet');
+const morgan  = require('morgan');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
+const pool    = require('./store/db/pool');
+const { setCsrfCookie, csrfProtection } = require('./store/middleware/auth');
+const { createStoreApp } = require('./store/app');
+const { createAdminApp } = require('./admin/app');
 
 const app  = express();
 const PORT = process.env.PORT || 4000;
 
-// ── Servir frontend estático desde public/ ────────────────────
-const PUBLIC_DIR = path.join(__dirname, '..', 'public');
-app.use(express.static(PUBLIC_DIR));
+app.set('trust proxy', 1);
 
-// ── Servir imágenes subidas desde el módulo admin ─────────────
-// El admin guarda en: <ruta_admin>/uploads/imagenes/ y uploads/carrusel/
-// Configura ADMIN_UPLOADS_DIR en .env apuntando a esa carpeta
-const ADMIN_UPLOADS = process.env.ADMIN_UPLOADS_DIR
-  ? path.resolve(process.env.ADMIN_UPLOADS_DIR)
-  : path.join(__dirname, '..', '..', 'modulo admin 5.0', 'uploads');
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com'],
+      imgSrc: ["'self'", 'data:', 'blob:', 'https:', 'https://cdn.jsdelivr.net'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com', 'https://cdn.socket.io'],
+      scriptSrcAttr: ["'unsafe-inline'"],
+      connectSrc: ["'self'", 'https://cdn.socket.io'],
+      frameSrc: ["'self'", "https://www.google.com"],
+      objectSrc: ["'none'"],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  frameguard: { action: 'deny' },
+}));
 
-app.use('/uploads', express.static(ADMIN_UPLOADS));
-console.log(`📁 Sirviendo uploads del admin desde: ${ADMIN_UPLOADS}`);
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:4000';
+app.use(cors({
+  origin: FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+  credentials: true,
+}));
 
-// ── Redirect raíz → página de inicio ─────────────────────────
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('combined'));
+}
+
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+app.use(cookieParser());
+
+app.use(setCsrfCookie);
+
+app.use(compression());
+
+/* ── Static files ── */
+const CHARSET_UTF8 = 'charset=utf-8';
+
+function setStaticHeaders(res, filePath) {
+  if (filePath.endsWith('.html')) {
+    res.setHeader('Cache-Control', 'public, no-cache');
+    res.setHeader('Content-Type', 'text/html; ' + CHARSET_UTF8);
+  } else if (/\.(js|css)$/i.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+    res.setHeader('Content-Type', (filePath.endsWith('.js') ? 'application/javascript' : 'text/css') + '; ' + CHARSET_UTF8);
+  } else if (filePath.endsWith('.webmanifest')) {
+    res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+    res.setHeader('Content-Type', 'application/manifest+json; ' + CHARSET_UTF8);
+  } else {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+}
+
+app.use('/store', express.static(path.join(__dirname, '..', 'public', 'store'), {
+  etag: true,
+  lastModified: true,
+  setHeaders: setStaticHeaders,
+}));
+
+const adminSetHeaders = (res, filePath) => {
+  if (filePath.endsWith('.html')) {
+    res.setHeader('Cache-Control', 'public, no-cache');
+    res.setHeader('Content-Type', 'text/html; ' + CHARSET_UTF8);
+  } else if (/\.(js|css)$/i.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+    res.setHeader('Content-Type', (filePath.endsWith('.js') ? 'application/javascript' : 'text/css') + '; ' + CHARSET_UTF8);
+  } else {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+};
+
+app.use('/admin', express.static(path.join(__dirname, '..', 'public', 'admin'), {
+  etag: true,
+  lastModified: true,
+  setHeaders: adminSetHeaders,
+}));
+
+app.use(express.static(path.join(__dirname, '..', 'public'), {
+  etag: true,
+  lastModified: true,
+  setHeaders: setStaticHeaders,
+}));
+
+/* ── Uploads (keep 1y immutable — these are user-uploaded images) ── */
+const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
+app.use('/uploads', express.static(UPLOADS_DIR, { maxAge: '1y', immutable: true }));
+const ADMIN_UPLOADS_OLD = path.join(__dirname, '..', '..', 'tech', 'modulo admin 5.0 - copia', 'uploads');
+app.use('/uploads', express.static(ADMIN_UPLOADS_OLD, { maxAge: '1y', immutable: true }));
+
+/* ── Redirects ── */
 app.get('/', (req, res) => {
-  res.redirect('/pages/1.html');
+  res.redirect('/store/pages/1.html');
 });
 
-// ── Middlewares globales ──────────────────────────────────────
-app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.get('/admin', (req, res) => {
+  res.redirect('/admin/login.html');
+});
 
-// ── Rutas ─────────────────────────────────────────────────────
-app.use('/api/auth',         authRouter);
-app.use('/api/usuarios',     usuariosRouter);
-app.use('/api/productos',    productosRouter);
-app.use('/api/categorias',   categoriasRouter);
-app.use('/api/pedidos',      pedidosRouter);
-app.use('/api/favoritos',    favoritosRouter);
-app.use('/api/cupones',      cuponesRouter);
-app.use('/api/envios',       enviosRouter);
-app.use('/api/metodos-pago', metodosPagoRouter);
-app.use('/api/carrusel',     carruselRouter);
+/* ── Rate limiting ── */
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: { error: 'Demasiados intentos. Intenta de nuevo en 15 minutos.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
-// ── Health check ──────────────────────────────────────────────
+app.use('/api/store/auth/login', authLimiter);
+app.use('/api/store/auth/register', authLimiter);
+
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 1000,
+  message: { error: 'Demasiadas solicitudes. Intenta de nuevo más tarde.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api', generalLimiter);
+
+/* ── Mount Store API ── */
+createStoreApp(app, '/api/store');
+
+/* ── Mount Admin API ── */
+createAdminApp(app, '/api/admin', pool);
+
+/* ── Health check ── */
 app.get('/api/health', async (req, res) => {
   try {
-    await pool.query('SELECT 1');
-    return res.json({ status: 'ok', db: 'connected', time: new Date().toISOString() });
+    const { rows } = await pool.query('SELECT NOW() as db_time');
+    return res.json({ status: 'ok', db: 'connected', db_time: rows[0].db_time });
   } catch (err) {
-    return res.status(500).json({ status: 'error', db: 'disconnected', error: err.message });
+    return res.status(500).json({ status: 'error', db: 'disconnected' });
   }
 });
 
-// ── 404 para rutas /api no encontradas ────────────────────────
+/* ── Legacy API redirects (compatibilidad) ── */
 app.use('/api', (req, res) => {
-  res.status(404).json({ error: `Ruta no encontrada: ${req.method} ${req.path}` });
+  res.status(404).json({ error: `Ruta no encontrada: ${req.method} /api${req.path}. Las rutas ahora usan /api/store/ o /api/admin/` });
 });
 
-// ── Fallback: cualquier otra ruta → index del frontend ────────
+/* ── 404 handler ── */
 app.use((req, res) => {
-  res.redirect('/pages/1.html');
+  if (req.path.startsWith('/api/')) {
+    res.status(404).json({ error: `Ruta no encontrada: ${req.method} ${req.path}` });
+  } else {
+    res.redirect('/store/pages/1.html');
+  }
 });
 
-// ── Error global ──────────────────────────────────────────────
+/* ── Global error handler ── */
 app.use((err, req, res, _next) => {
-  console.error('Error no controlado:', err);
+  console.error('Error no controlado:', err.message);
   res.status(500).json({ error: 'Error interno del servidor' });
-});
-
-// ── Arrancar servidor ─────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🚀  TechBuy API corriendo en http://localhost:${PORT}`);
-  console.log(`   ENV: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`   DB:  ${process.env.DB_NAME}@${process.env.DB_HOST}:${process.env.DB_PORT}\n`);
 });
 
 module.exports = app;

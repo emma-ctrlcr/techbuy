@@ -1,0 +1,85 @@
+.mensaje-no-leido {
+    border-left: 4px solid var(--accent);
+    background: #fff8f0 !important;
+}
+.mensaje-no-leido td:first-child {
+    position: relative;
+}
+.mensaje-no-leido td:first-child::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+.mensaje-detalle-body {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    margin: 12px 0;
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 14px;
+}
+.mensaje-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.mensaje-meta-item {
+    font-size: 13px;
+}
+.mensaje-meta-item strong {
+    color: var(--primary);
+}
+
+/* ── Column widths ── */
+.mensajes-table .col-id { width: 60px; }
+.mensajes-table .col-nombre { width: 180px; }
+.mensajes-table .col-email { width: 220px; }
+.mensajes-table .col-telefono { width: 120px; }
+.mensajes-table .col-asunto { width: 120px; }
+.mensajes-table .col-mensaje { width: 220px; }
+.mensajes-table .col-leido { width: 70px; }
+.mensajes-table .col-respondido { width: 90px; }
+.mensajes-table .col-fecha { width: 160px; }
+.mensajes-table .col-acciones { width: 120px; }
+
+/* ── Cell content clamp ── */
+.mensajes-table .cell-text {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mensajes-table .cell-link {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--info);
+    text-decoration: none;
+}
+.mensajes-table .cell-link:hover { text-decoration: underline; }
+
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .mensaje-detalle-body { padding: 16px; font-size: 13px; }
+    .mensaje-meta { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .mensaje-detalle-body { padding: 12px; font-size: 12px; }
+    .mensaje-meta { gap: 6px; }
+    .mensaje-meta-item { font-size: 12px; }
+}

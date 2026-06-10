@@ -1,0 +1,26 @@
+.user-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #475569, #334155);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+.usuario-email {
+    color: var(--info);
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    .user-avatar-placeholder { width: 28px; height: 28px; font-size: 12px; }
+    .usuario-email { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+    .user-avatar-placeholder { width: 24px; height: 24px; font-size: 11px; }
+    .usuario-email { font-size: 11px; }
+}

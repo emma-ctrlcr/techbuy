@@ -1,0 +1,147 @@
+/* ══════════════════════════════════════════════════════════════
+   TECHBUY — shipping-dept.css
+   Estilos del autocomplete de departamentos.
+   Agrega en tu checkout.html:
+     <link rel="stylesheet" href="../css/shipping-dept.css" />
+   (o copia estas reglas al final de checkout.css)
+══════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper posicionado ──────────────────────────────────── */
+.dept-combo-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Input ───────────────────────────────────────────────── */
+.dept-combo-input {
+  width: 100%;
+  padding: 11px 42px 11px 14px;
+  border: 1.5px solid #dde2f0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0d1b3e;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.dept-combo-input:focus,
+.dept-wrapper-open .dept-combo-input {
+  border-color: #1a2fcc;
+  box-shadow: 0 0 0 3px rgba(26,47,204,.1);
+}
+
+/* Icono de flecha */
+.dept-combo-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #9ca3af;
+  pointer-events: none;
+  transition: transform .2s;
+}
+.dept-wrapper-open::after {
+  transform: translateY(-50%) rotate(180deg);
+  border-top-color: #1a2fcc;
+}
+
+/* ── Dropdown ─────────────────────────────────────────────── */
+.dept-combo-list {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: #fff;
+  border: 1.5px solid #dde2f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(13,27,62,.12);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 999;
+  list-style: none;
+  margin: 0; padding: 6px 0;
+  scroll-behavior: smooth;
+}
+.dept-combo-list.dept-open {
+  display: block;
+  animation: deptSlideIn .15s ease;
+}
+@keyframes deptSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar personalizada */
+.dept-combo-list::-webkit-scrollbar { width: 5px; }
+.dept-combo-list::-webkit-scrollbar-track { background: transparent; }
+.dept-combo-list::-webkit-scrollbar-thumb { background: #dde2f0; border-radius: 10px; }
+
+/* ── Opciones ─────────────────────────────────────────────── */
+.dept-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #374151;
+  cursor: pointer;
+  transition: background .12s;
+  gap: 8px;
+}
+.dept-option:hover,
+.dept-option.dept-active {
+  background: #f0f4ff;
+  color: #1a2fcc;
+}
+.dept-option mark {
+  background: none;
+  color: #1a2fcc;
+  font-weight: 700;
+}
+
+/* Precio a la derecha */
+.dept-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9ca3af;
+  white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.dept-option:hover .dept-price,
+.dept-option.dept-active .dept-price {
+  color: #1a2fcc;
+}
+
+/* Sin resultados */
+.dept-no-result {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+/* ── Costo de envío seleccionado ──────────────────────────── */
+.dept-shipping-cost {
+  font-size: 12px;
+  font-weight: 700;
+  color: #16a34a;
+  margin-top: 6px;
+  padding-left: 2px;
+  display: none;
+  transition: opacity .2s;
+}
+.dept-shipping-cost.dept-cost-visible {
+  display: block;
+  animation: deptCostIn .25s ease;
+}
+@keyframes deptCostIn {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
