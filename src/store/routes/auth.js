@@ -145,7 +145,7 @@ router.post('/register', registerValidation, async (req, res) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        path: '/api/auth',
+        path: '/api/store/auth',
       });
 
       return res.status(201).json({ token: accessToken, user: userPublic(user) });
@@ -204,7 +204,7 @@ router.post('/login', async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      path: '/api/auth',
+      path: '/api/store/auth',
     });
 
     return res.json({ token: accessToken, user: userPublic(user) });
@@ -258,7 +258,7 @@ router.post('/refresh', csrfProtection, async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      path: '/api/auth',
+      path: '/api/store/auth',
     });
 
     return res.json({ token: newAccessToken });
@@ -289,7 +289,7 @@ router.post('/logout', csrfProtection, async (req, res) => {
     }
   }
 
-  res.clearCookie('refresh_token', { path: '/api/auth' });
+  res.clearCookie('refresh_token', { path: '/api/store/auth' });
   return res.json({ message: 'Sesión cerrada correctamente' });
 });
 
