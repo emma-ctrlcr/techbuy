@@ -113,7 +113,10 @@ app.use(express.static(path.join(__dirname, '..', 'public'), {
 }));
 
 /* ── Uploads (keep 1y immutable — these are user-uploaded images) ── */
-const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
+const UPLOADS_DIR =
+  process.env.NODE_ENV === 'production'
+    ? '/data/uploads'
+    : path.join(__dirname, '..', 'uploads');
 app.use('/uploads', express.static(UPLOADS_DIR, { maxAge: '1y', immutable: true }));
 const ADMIN_UPLOADS_OLD = path.join(__dirname, '..', '..', 'tech', 'modulo admin 5.0 - copia', 'uploads');
 app.use('/uploads', express.static(ADMIN_UPLOADS_OLD, { maxAge: '1y', immutable: true }));
