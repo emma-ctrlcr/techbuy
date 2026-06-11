@@ -8,7 +8,9 @@ const { optimizeImage, deleteImageFiles } = require('../utils/image-optimizer');
 const { emitAdminEvent } = require('../../socket');
 const router = express.Router();
 
-const uploadDir = path.join(__dirname, '..', '..', '..', 'uploads', 'imagenes');
+const uploadDir = process.env.NODE_ENV === 'production'
+  ? '/data/uploads/imagenes'
+  : path.join(__dirname, '..', '..', '..', 'uploads', 'imagenes');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }

@@ -28,6 +28,9 @@ function ensureDir(dirPath) {
 }
 
 function resolvePath(url) {
+    if (process.env.NODE_ENV === 'production') {
+        return '/data' + url;
+    }
     return path.join(__dirname, '..', '..', '..', url);
 }
 

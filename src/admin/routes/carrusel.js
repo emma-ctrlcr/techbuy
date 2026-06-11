@@ -8,7 +8,9 @@ const { optimizeImage, deleteImageFiles } = require('../utils/image-optimizer');
 const { emitAdminEvent } = require('../../socket');
 const router = express.Router();
 
-const carruselDir = path.join(__dirname, '..', '..', '..', 'uploads', 'carrusel');
+const carruselDir = process.env.NODE_ENV === 'production'
+  ? '/data/uploads/carrusel'
+  : path.join(__dirname, '..', '..', '..', 'uploads', 'carrusel');
 if (!fs.existsSync(carruselDir)) {
     fs.mkdirSync(carruselDir, { recursive: true });
 }
