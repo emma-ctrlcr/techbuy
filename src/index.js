@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const path    = require('path');
+const fs      = require('fs');
 process.env.TZ = 'America/Managua';
 
 const express = require('express');
@@ -82,6 +83,24 @@ function setStaticHeaders(res, filePath) {
   }
 }
 
+/* ── SEO: inject meta tags + canonical into store HTML pages ── */
+const SEO_HEAD = `
+  <meta name="description" content="Tienda online de computadoras, laptops, monitores, accesorios y tecnolog\u00eda en Costa Rica.">
+  <meta name="keywords" content="laptops, computadoras, monitores, tecnolog\u00eda, gaming, Costa Rica">
+  <meta property="og:title" content="Tech Buy">
+  <meta property="og:description" content="Tecnolog\u00eda y electr\u00f3nica en Costa Rica">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.techbuy.store">`;
+
+app.use('/store', (req, res, next) => {
+  if (!req.path.endsWith('.html')) return next();
+  const filePath = path.join(__dirname, '..', 'public', 'store', req.path);
+  if (!fs.existsSync(filePath)) return next();
+  let html = fs.readFileSync(filePath, 'utf8');
+  html = html.replace('</head>', SEO_HEAD + '\n</head>');
+  res.type('html').send(html);
+});
+
 app.use('/store', express.static(path.join(__dirname, '..', 'public', 'store'), {
   etag: true,
   lastModified: true,
@@ -128,6 +147,32 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
   res.redirect('/admin/login.html');
+});
+
+/* ── SEO: robots.txt ── */
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send('User-agent: *\nAllow: /\n\nSitemap: https://www.techbuy.store/sitemap.xml\n');
+});
+
+/* ── SEO: sitemap.xml ── */
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT id_producto FROM public.productos');
+    const urls = rows.map(r =>
+      `  <url><loc>https://www.techbuy.store/store/pages/producto.html?id=${r.id_producto}</loc></url>`
+    ).join('\n');
+    res.type('application/xml').send(
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+      '  <url><loc>https://www.techbuy.store/</loc></url>\n' +
+      '  <url><loc>https://www.techbuy.store/store/pages/1.html</loc></url>\n' +
+      urls + '\n' +
+      '</urlset>'
+    );
+  } catch (err) {
+    console.error('Error generando sitemap:', err.message);
+    res.status(500).type('text/plain').send('Error generando sitemap');
+  }
 });
 
 /* ── Rate limiting ── */
