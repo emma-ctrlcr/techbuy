@@ -9,14 +9,18 @@ function setupSocketIO(httpServer) {
       origin: function (origin, callback) {
         const allowed = [
           FRONTEND_URL,
+          'https://www.techbuy.store',
+          'https://techbuy.store',
           'http://localhost:4000',
           'http://127.0.0.1:4000',
           'http://localhost:3000',
           'http://127.0.0.1:3000',
         ];
         if (!origin || allowed.includes(origin)) {
+          if (origin) console.log('[SocketIO] CORS OK:', origin);
           callback(null, true);
         } else {
+          console.warn('[SocketIO] CORS DENEGADO:', origin);
           callback(new Error('CORS no permitido: ' + origin));
         }
       },
